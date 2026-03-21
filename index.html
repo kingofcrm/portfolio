@@ -274,24 +274,72 @@
     .cert-card:hover .cert-title { color: var(--teal); }
     .cert-issuer { font-size: 0.8rem; color: var(--slate); }
 
-    /* ─── Projects ──────────────────────────────────────────────────── */
-    .projects-list { display: flex; flex-direction: column; gap: 4px; }
-    .project-card {
+    /* ─── Projects — Flip Cards ─────────────────────────────────────── */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Flip wrapper: sets 3-D context and fixed height */
+    .flip-wrapper {
+      perspective: 1200px;
+      height: 180px;
+      border-radius: 12px;
+    }
+
+    /* Inner container that actually rotates */
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.645, 0.045, 0.355, 1);
+      border-radius: 12px;
+    }
+    .flip-wrapper:hover .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Shared face styles */
+    .flip-front,
+    .flip-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* ── FRONT face (existing project card look) ── */
+    .flip-front {
       display: flex;
       gap: 24px;
       align-items: flex-start;
+      padding: 28px;
+      background: transparent;
+      border: 1px solid transparent;
+      transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
     }
+    .flip-wrapper:hover .flip-front {
+      background: var(--light-navy);
+      border-color: var(--lightest-navy);
+      box-shadow: 0 16px 48px -12px rgba(2,12,27,0.7);
+    }
+
     .project-thumb {
       width: 148px;
-      height: 96px;
+      height: 100%;
       flex-shrink: 0;
       border-radius: 8px;
       border: 1px solid var(--lightest-navy);
       overflow: hidden;
       position: relative;
+      align-self: stretch;
       transition: var(--transition);
     }
-    .project-card:hover .project-thumb {
+    .flip-wrapper:hover .project-thumb {
       border-color: var(--teal);
       box-shadow: 0 0 0 2px rgba(100,255,218,0.1);
     }
@@ -303,6 +351,7 @@
       justify-content: center;
     }
     .thumb-gradient svg { opacity: 0.35; width: 40px; height: 40px; color: var(--teal); }
+
     .project-content { flex: 1; min-width: 0; }
     .project-meta {
       display: flex;
@@ -316,26 +365,110 @@
       font-size: 0.72rem;
       color: var(--teal);
     }
-    .project-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
     .project-title {
       font-size: 0.9375rem;
       font-weight: 600;
       color: var(--lightest-slate);
       transition: color 0.2s;
       line-height: 1.3;
+      margin-bottom: 8px;
     }
-    .project-card:hover .project-title { color: var(--teal); }
+    .flip-wrapper:hover .project-title { color: var(--teal); }
     .project-desc {
       font-size: 0.85rem;
       color: var(--slate);
       line-height: 1.65;
       margin-bottom: 12px;
     }
+
+    /* ── BACK face (live website iframe preview) ── */
+    .flip-back {
+      transform: rotateY(180deg);
+      background: var(--light-navy);
+      border: 1px solid rgba(100,255,218,0.3);
+      box-shadow: 0 16px 48px -12px rgba(2,12,27,0.9);
+    }
+
+    /* Top bar that mimics a browser chrome */
+    .flip-back-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: var(--lightest-navy);
+      border-bottom: 1px solid rgba(100,255,218,0.12);
+      flex-shrink: 0;
+      height: 36px;
+    }
+    .browser-dots { display: flex; gap: 5px; }
+    .browser-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .dot-red    { background: #ff5f57; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green  { background: #28c840; }
+    .browser-url {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--slate);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .browser-open-link {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--teal);
+      white-space: nowrap;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .browser-open-link:hover { opacity: 1; }
+
+    /* iframe container fills the rest */
+    .flip-back-iframe-wrap {
+      position: absolute;
+      top: 36px;
+      left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+      background: #fff;
+    }
+    .flip-back-iframe-wrap iframe {
+      width: 200%;           /* render at 2× then scale down */
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;  /* prevent interaction while flipped */
+    }
+
+    /* Fallback shown when iframe can't load (X-Frame-Options) */
+    .flip-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--slate);
+      font-size: 0.82rem;
+      text-align: center;
+      padding: 16px;
+      background: var(--light-navy);
+    }
+    .flip-fallback svg { color: var(--teal); opacity: 0.5; width: 32px; height: 32px; }
+    .flip-fallback a {
+      color: var(--teal);
+      font-size: 0.78rem;
+      border-bottom: 1px solid rgba(100,255,218,0.3);
+      transition: border-color 0.2s;
+    }
+    .flip-fallback a:hover { border-color: var(--teal); }
 
     /* ─── GitHub Section ────────────────────────────────────────────── */
     .github-controls {
@@ -532,8 +665,9 @@
     @media (max-width: 640px) {
       .layout { padding: 48px 20px 80px; }
       .profile-name { font-size: 2rem; }
-      .project-card { flex-direction: column; }
-      .project-thumb { width: 100%; height: 140px; }
+      .flip-wrapper { height: auto; }
+      .flip-front { flex-direction: column; }
+      .project-thumb { width: 100%; height: 120px; }
       .github-controls { flex-direction: column; }
     }
   </style>
@@ -560,13 +694,13 @@
         <a href="#about"          class="nav-item active" data-section="about">
           <span class="nav-line"></span><span>About</span>
         </a>
-        <a href="#certifications" class="nav-item"         data-section="certifications">
+        <a href="#certifications" class="nav-item" data-section="certifications">
           <span class="nav-line"></span><span>Certifications</span>
         </a>
-        <a href="#projects"       class="nav-item"         data-section="projects">
+        <a href="#projects"       class="nav-item" data-section="projects">
           <span class="nav-line"></span><span>Projects</span>
         </a>
-        <a href="#github"         class="nav-item"         data-section="github">
+        <a href="#github"         class="nav-item" data-section="github">
           <span class="nav-line"></span><span>GitHub</span>
         </a>
       </nav>
@@ -574,13 +708,11 @@
 
     <!-- Social -->
     <div class="social-row fade-up delay-4">
-      <!-- GitHub -->
       <a href="https://github.com/kingofcrm" target="_blank" rel="noopener" class="social-link" title="GitHub">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
         </svg>
       </a>
-      <!-- LinkedIn -->
       <a href="https://www.linkedin.com/in/vinods-9071aa29/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -588,14 +720,12 @@
           <circle cx="4" cy="4" r="2"/>
         </svg>
       </a>
-      <!-- Email -->
       <a href="mailto:v.shivhare@gmail.com" class="social-link" title="Email">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
         </svg>
       </a>
-      <!-- Resume / CV icon -->
       <a href="https://www.linkedin.com/in/vinods-9071aa29/" target="_blank" rel="noopener" class="social-link" title="LinkedIn Profile">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -640,7 +770,6 @@
           <a href="mailto:v.shivhare@gmail.com">v.shivhare@gmail.com</a>
         </p>
       </div>
-
       <div class="skills-label">Technologies &amp; Skills</div>
       <div class="pill-row">
         <span class="pill">Salesforce CRM</span>
@@ -665,8 +794,6 @@
     <section id="certifications" class="section">
       <div class="section-label">Certifications</div>
       <div class="cert-list">
-
-        <!-- 1 -->
         <div class="card cert-card">
           <div class="cert-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -681,8 +808,6 @@
             <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
           </svg>
         </div>
-
-        <!-- 2 -->
         <div class="card cert-card">
           <div class="cert-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -698,8 +823,6 @@
             <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
           </svg>
         </div>
-
-        <!-- 3 -->
         <div class="card cert-card">
           <div class="cert-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -715,8 +838,6 @@
             <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
           </svg>
         </div>
-
-        <!-- 4 -->
         <div class="card cert-card">
           <div class="cert-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -731,8 +852,6 @@
             <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
           </svg>
         </div>
-
-        <!-- 5 -->
         <div class="card cert-card">
           <div class="cert-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -747,7 +866,6 @@
             <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
           </svg>
         </div>
-
       </div>
     </section>
 
@@ -757,105 +875,170 @@
       <div class="projects-list">
 
         <!-- 1 · Fitness Tracker -->
-        <a href="https://fitness-tracker-five-lemon.vercel.app/" target="_blank" rel="noopener"
-           class="card project-card" style="text-decoration:none">
-          <div class="project-thumb">
-            <div class="thumb-gradient" style="background:linear-gradient(135deg,#0d2137 0%,#1a3a5c 60%,#0a2a1a 100%);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-              </svg>
+        <div class="flip-wrapper">
+          <div class="flip-inner">
+            <!-- FRONT -->
+            <div class="flip-front">
+              <div class="project-thumb">
+                <div class="thumb-gradient" style="background:linear-gradient(135deg,#0d2137 0%,#1a3a5c 60%,#0a2a1a 100%);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-year">2024</span>
+                  <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                  </svg>
+                </div>
+                <div class="project-title">Fitness Tracker</div>
+                <p class="project-desc">A personal fitness tracking app to log workouts, monitor progress, and set health goals with an intuitive dashboard.</p>
+                <div class="pill-row">
+                  <span class="pill">JavaScript</span><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">REST APIs</span>
+                </div>
+              </div>
+            </div>
+            <!-- BACK -->
+            <div class="flip-back">
+              <div class="flip-back-bar">
+                <div class="browser-dots">
+                  <span class="browser-dot dot-red"></span>
+                  <span class="browser-dot dot-yellow"></span>
+                  <span class="browser-dot dot-green"></span>
+                </div>
+                <span class="browser-url">fitness-tracker-five-lemon.vercel.app</span>
+                <a class="browser-open-link" href="https://fitness-tracker-five-lemon.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Open ↗</a>
+              </div>
+              <div class="flip-back-iframe-wrap">
+                <iframe src="https://fitness-tracker-five-lemon.vercel.app/"
+                        title="Fitness Tracker preview"
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin">
+                </iframe>
+                <div class="flip-fallback" style="display:none">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                  <span>Preview unavailable</span>
+                  <a href="https://fitness-tracker-five-lemon.vercel.app/" target="_blank" rel="noopener">Visit live site ↗</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-content">
-            <div class="project-meta">
-              <span class="project-year">2024</span>
-              <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-              </svg>
-            </div>
-            <div class="project-title">Fitness Tracker</div>
-            <p class="project-desc">
-              A personal fitness tracking application to log workouts, monitor progress,
-              and set health goals with an intuitive dashboard.
-            </p>
-            <div class="pill-row">
-              <span class="pill">JavaScript</span>
-              <span class="pill">HTML</span>
-              <span class="pill">CSS</span>
-              <span class="pill">REST APIs</span>
-            </div>
-          </div>
-        </a>
+        </div>
 
         <!-- 2 · Bollywood Antakshari -->
-        <a href="https://antakshari-sandy.vercel.app/" target="_blank" rel="noopener"
-           class="card project-card" style="text-decoration:none">
-          <div class="project-thumb">
-            <div class="thumb-gradient" style="background:linear-gradient(135deg,#1a0d24 0%,#3d1452 60%,#1a0e0d 100%);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-              </svg>
+        <div class="flip-wrapper">
+          <div class="flip-inner">
+            <!-- FRONT -->
+            <div class="flip-front">
+              <div class="project-thumb">
+                <div class="thumb-gradient" style="background:linear-gradient(135deg,#1a0d24 0%,#3d1452 60%,#1a0e0d 100%);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-year">2023</span>
+                  <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                  </svg>
+                </div>
+                <div class="project-title">Bollywood Antakshari</div>
+                <p class="project-desc">An interactive Bollywood music game where players continue songs from the last letter of the previous song—a digital twist on the classic Indian party game.</p>
+                <div class="pill-row">
+                  <span class="pill">JavaScript</span><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">Music APIs</span>
+                </div>
+              </div>
+            </div>
+            <!-- BACK -->
+            <div class="flip-back">
+              <div class="flip-back-bar">
+                <div class="browser-dots">
+                  <span class="browser-dot dot-red"></span>
+                  <span class="browser-dot dot-yellow"></span>
+                  <span class="browser-dot dot-green"></span>
+                </div>
+                <span class="browser-url">antakshari-sandy.vercel.app</span>
+                <a class="browser-open-link" href="https://antakshari-sandy.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Open ↗</a>
+              </div>
+              <div class="flip-back-iframe-wrap">
+                <iframe src="https://antakshari-sandy.vercel.app/"
+                        title="Bollywood Antakshari preview"
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin">
+                </iframe>
+                <div class="flip-fallback" style="display:none">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                  <span>Preview unavailable</span>
+                  <a href="https://antakshari-sandy.vercel.app/" target="_blank" rel="noopener">Visit live site ↗</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-content">
-            <div class="project-meta">
-              <span class="project-year">2023</span>
-              <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-              </svg>
-            </div>
-            <div class="project-title">Bollywood Antakshari</div>
-            <p class="project-desc">
-              An interactive Bollywood music game where players continue songs from the
-              last letter of the previous song—a digital take on the classic Indian party game.
-            </p>
-            <div class="pill-row">
-              <span class="pill">JavaScript</span>
-              <span class="pill">HTML</span>
-              <span class="pill">CSS</span>
-              <span class="pill">Music APIs</span>
-            </div>
-          </div>
-        </a>
+        </div>
 
         <!-- 3 · Tax Planner -->
-        <a href="https://github.com/kingofcrm" target="_blank" rel="noopener"
-           class="card project-card" style="text-decoration:none">
-          <div class="project-thumb">
-            <div class="thumb-gradient" style="background:linear-gradient(135deg,#0d1f0d 0%,#1a3d2e 60%,#0d1a24 100%);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-              </svg>
+        <div class="flip-wrapper">
+          <div class="flip-inner">
+            <!-- FRONT -->
+            <div class="flip-front">
+              <div class="project-thumb">
+                <div class="thumb-gradient" style="background:linear-gradient(135deg,#0d1f0d 0%,#1a3d2e 60%,#0d1a24 100%);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-year">2024</span>
+                  <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                  </svg>
+                </div>
+                <div class="project-title">Tax Planner</div>
+                <p class="project-desc">A smart tax planning tool that helps users estimate liabilities, explore deductions, and plan finances effectively for the fiscal year.</p>
+                <div class="pill-row">
+                  <span class="pill">JavaScript</span><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">Financial APIs</span>
+                </div>
+              </div>
+            </div>
+            <!-- BACK -->
+            <div class="flip-back">
+              <div class="flip-back-bar">
+                <div class="browser-dots">
+                  <span class="browser-dot dot-red"></span>
+                  <span class="browser-dot dot-yellow"></span>
+                  <span class="browser-dot dot-green"></span>
+                </div>
+                <span class="browser-url">github.com/kingofcrm/tax-planner</span>
+                <a class="browser-open-link" href="https://github.com/kingofcrm/tax-planner" target="_blank" rel="noopener" onclick="event.stopPropagation()">Open ↗</a>
+              </div>
+              <div class="flip-back-iframe-wrap">
+                <iframe src="https://github.com/kingofcrm/tax-planner"
+                        title="Tax Planner preview"
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin">
+                </iframe>
+                <div class="flip-fallback" style="display:none">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                  <span>Preview unavailable</span>
+                  <a href="https://github.com/kingofcrm/tax-planner" target="_blank" rel="noopener">View on GitHub ↗</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="project-content">
-            <div class="project-meta">
-              <span class="project-year">2024</span>
-              <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-              </svg>
-            </div>
-            <div class="project-title">Tax Planner</div>
-            <p class="project-desc">
-              A smart tax planning tool that helps users estimate liabilities, explore
-              deductions, and plan finances effectively for the fiscal year.
-            </p>
-            <div class="pill-row">
-              <span class="pill">JavaScript</span>
-              <span class="pill">HTML</span>
-              <span class="pill">CSS</span>
-              <span class="pill">Financial APIs</span>
-            </div>
-          </div>
-        </a>
+        </div>
 
-      </div>
+      </div><!-- /.projects-list -->
     </section>
 
     <!-- ── GITHUB ──────────────────────────────────────────────────── -->
     <section id="github" class="section">
       <div class="section-label">GitHub Repositories</div>
-
       <div class="github-controls">
         <input class="gh-search" id="gh-search" type="text" placeholder="Search repositories…" autocomplete="off">
         <select class="gh-sort" id="gh-sort">
@@ -865,10 +1048,8 @@
           <option value="az">A – Z</option>
         </select>
       </div>
-
       <div class="gh-count" id="gh-count"></div>
       <div class="repos-grid" id="repos-grid">
-        <!-- skeleton placeholders -->
         <div class="sk-card"><div class="sk sk-line" style="width:40%"></div><div class="sk sk-line" style="width:80%"></div><div class="sk sk-sm"></div></div>
         <div class="sk-card"><div class="sk sk-line" style="width:55%"></div><div class="sk sk-line" style="width:70%"></div><div class="sk sk-sm"></div></div>
         <div class="sk-card"><div class="sk sk-line" style="width:35%"></div><div class="sk sk-line" style="width:90%"></div><div class="sk sk-sm"></div></div>
@@ -879,11 +1060,8 @@
 
     <!-- ── FOOTER ─────────────────────────────────────────────────── -->
     <footer class="footer">
-      <p>Designed &amp; built by <strong style="color:var(--light-slate)">Vinod Shivhare</strong>
-        ·</p>
-      <p style="margin-top:4px; font-size:0.72rem; opacity:.6">
-        Dallas–Fort Worth &nbsp;·&nbsp; 2025
-      </p>
+      <p>Designed &amp; built by <strong style="color:var(--light-slate)">Vinod Shivhare</strong></p>
+      <p style="margin-top:4px; font-size:0.72rem; opacity:.6">Dallas–Fort Worth &nbsp;·&nbsp; 2025</p>
     </footer>
 
   </main>
@@ -904,21 +1082,15 @@
   });
 })();
 
-/* ── Scroll-spy (IntersectionObserver) ─────────────────────────────── */
+/* ── Scroll-spy ─────────────────────────────────────────────────────── */
 (function() {
   const navItems = document.querySelectorAll('.nav-item[data-section]');
   const sections = Array.from(navItems).map(n => document.getElementById(n.dataset.section));
-
-  const setActive = id => {
-    navItems.forEach(n => n.classList.toggle('active', n.dataset.section === id));
-  };
-
+  const setActive = id => navItems.forEach(n => n.classList.toggle('active', n.dataset.section === id));
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
   }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
-
   sections.forEach(s => s && io.observe(s));
-
   navItems.forEach(n => {
     n.addEventListener('click', ev => {
       ev.preventDefault();
@@ -928,47 +1100,55 @@
   });
 })();
 
+/* ── Flip card iframe fallback ──────────────────────────────────────── */
+(function() {
+  document.querySelectorAll('.flip-back-iframe-wrap').forEach(wrap => {
+    const iframe = wrap.querySelector('iframe');
+    const fallback = wrap.querySelector('.flip-fallback');
+    if (!iframe || !fallback) return;
+    iframe.addEventListener('error', () => {
+      iframe.style.display = 'none';
+      fallback.style.display = 'flex';
+    });
+    // Also show fallback if iframe doesn't load within 6s
+    const timer = setTimeout(() => {
+      try {
+        // If contentDocument is null, it was blocked
+        if (!iframe.contentDocument) {
+          iframe.style.display = 'none';
+          fallback.style.display = 'flex';
+        }
+      } catch(e) {
+        iframe.style.display = 'none';
+        fallback.style.display = 'flex';
+      }
+    }, 6000);
+    iframe.addEventListener('load', () => clearTimeout(timer));
+  });
+})();
+
 /* ── GitHub Repos ───────────────────────────────────────────────────── */
 (function() {
   const LANG_COLORS = {
-    'JavaScript':       '#f1e05a',
-    'TypeScript':       '#3178c6',
-    'Python':           '#3572A5',
-    'HTML':             '#e34c26',
-    'CSS':              '#563d7c',
-    'SCSS':             '#c6538c',
-    'Java':             '#b07219',
-    'Kotlin':           '#A97BFF',
-    'Swift':            '#F05138',
-    'Go':               '#00ADD8',
-    'Rust':             '#dea584',
-    'Ruby':             '#701516',
-    'PHP':              '#4F5D95',
-    'C':                '#555555',
-    'C++':              '#f34b7d',
-    'C#':               '#178600',
-    'Shell':            '#89e051',
-    'Dart':             '#00B4AB',
-    'Vue':              '#41b883',
-    'Svelte':           '#ff3e00',
-    'Jupyter Notebook': '#DA5B0B',
-    'Dockerfile':       '#384d54',
-    'Makefile':         '#427819',
+    'JavaScript':'#f1e05a','TypeScript':'#3178c6','Python':'#3572A5',
+    'HTML':'#e34c26','CSS':'#563d7c','SCSS':'#c6538c','Java':'#b07219',
+    'Kotlin':'#A97BFF','Swift':'#F05138','Go':'#00ADD8','Rust':'#dea584',
+    'Ruby':'#701516','PHP':'#4F5D95','C':'#555555','C++':'#f34b7d',
+    'C#':'#178600','Shell':'#89e051','Dart':'#00B4AB','Vue':'#41b883',
+    'Svelte':'#ff3e00','Jupyter Notebook':'#DA5B0B',
   };
-
   const STAR_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
   const FORK_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>`;
 
   let allRepos = [];
-  const grid  = document.getElementById('repos-grid');
-  const count = document.getElementById('gh-count');
+  const grid   = document.getElementById('repos-grid');
+  const count  = document.getElementById('gh-count');
   const search = document.getElementById('gh-search');
   const sortSel = document.getElementById('gh-sort');
 
   function timeAgo(str) {
-    const diff = Date.now() - new Date(str);
-    const d = Math.floor(diff / 86400000);
-    if (d < 1)  return 'today';
+    const d = Math.floor((Date.now() - new Date(str)) / 86400000);
+    if (d < 1) return 'today';
     if (d < 30) return `${d}d ago`;
     const m = Math.floor(d / 30);
     if (m < 12) return `${m}mo ago`;
@@ -983,20 +1163,18 @@
     }
     count.textContent = `Showing ${repos.length} repositor${repos.length === 1 ? 'y' : 'ies'}`;
     grid.innerHTML = repos.map(r => {
-      const langColor = LANG_COLORS[r.language] || '#8892b0';
+      const lc = LANG_COLORS[r.language] || '#8892b0';
       const langBadge = r.language
-        ? `<span class="lang-badge"><span class="lang-dot" style="background:${langColor}"></span>${r.language}</span>`
-        : '';
-      const liveBtnHtml = r.homepage
-        ? `<a href="${r.homepage}" target="_blank" rel="noopener" class="live-btn" onclick="event.stopPropagation()">Live ↗</a>`
-        : '';
+        ? `<span class="lang-badge"><span class="lang-dot" style="background:${lc}"></span>${r.language}</span>` : '';
+      const liveBtn = r.homepage
+        ? `<a href="${r.homepage}" target="_blank" rel="noopener" class="live-btn" onclick="event.stopPropagation()">Live ↗</a>` : '';
       return `
       <div class="repo-card">
         <div class="repo-top">
           <a href="${r.html_url}" target="_blank" rel="noopener" class="repo-name-link">
             ${r.name} <span class="r-arrow">↗</span>
           </a>
-          ${liveBtnHtml}
+          ${liveBtn}
         </div>
         <p class="repo-desc">${r.description || 'No description available.'}</p>
         <div class="repo-footer">
@@ -1016,7 +1194,7 @@
       !r.fork &&
       (!q || r.name.toLowerCase().includes(q) || (r.description||'').toLowerCase().includes(q))
     );
-    if (s === 'stars')   filtered.sort((a,b) => b.stargazers_count - a.stargazers_count);
+    if (s === 'stars')  filtered.sort((a,b) => b.stargazers_count - a.stargazers_count);
     else if (s === 'forks') filtered.sort((a,b) => b.forks_count - a.forks_count);
     else if (s === 'az')    filtered.sort((a,b) => a.name.localeCompare(b.name));
     else filtered.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
@@ -1027,19 +1205,13 @@
   sortSel.addEventListener('change', applyFilters);
 
   fetch('https://api.github.com/users/kingofcrm/repos?sort=updated&per_page=100')
-    .then(r => {
-      if (!r.ok) throw new Error(`GitHub API ${r.status}`);
-      return r.json();
-    })
-    .then(data => {
-      allRepos = data;
-      applyFilters();
-    })
+    .then(r => { if (!r.ok) throw new Error(`GitHub API ${r.status}`); return r.json(); })
+    .then(data => { allRepos = data; applyFilters(); })
     .catch(err => {
       grid.innerHTML = `
         <div class="gh-empty">
           <p style="color:var(--teal)">Could not load repositories.</p>
-          <p style="margin-top:8px;font-size:0.78rem">${err.message} — GitHub API may be rate-limited.</p>
+          <p style="margin-top:8px;font-size:0.78rem">${err.message}</p>
           <p style="margin-top:4px;font-size:0.78rem">
             <a href="https://github.com/kingofcrm?tab=repositories" target="_blank" rel="noopener"
                style="color:var(--teal);border-bottom:1px solid var(--teal)">
