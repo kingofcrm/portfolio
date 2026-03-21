@@ -1,0 +1,20 @@
+{
+  "watchlist": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NVDA", "META", "SPY", "QQQ", "BTC-USD"],
+  "schedule": {
+    "market_hours_interval_minutes": 30,
+    "after_hours_interval_minutes": 120,
+    "end_of_day_summary": "16:30"
+  },
+  "alert_threshold_pct": 3.0,
+  "trend_window_periods": 6,
+  "delivery": {
+    "method": "discord",
+    "webhook_url": "",
+    "email": {
+      "smtp_host": "smtp.sendgrid.net",
+      "smtp_port": 587,
+      "from": "agent@yourdomain.com",
+      "to": ["you@yourdomain.com"]
+    }
+  }
+}

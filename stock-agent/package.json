@@ -1,0 +1,16 @@
+{
+  "name": "stock-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Autonomous stock market monitor agent powered by Claude",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "dotenv": "^16.4.7",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^8.0.3"
+  }
+}

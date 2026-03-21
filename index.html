@@ -670,6 +670,43 @@
       .project-thumb { width: 100%; height: 120px; }
       .github-controls { flex-direction: column; }
     }
+
+    /* ─── Stock Widget (flip-back of Stock Agent card) ──────────────── */
+    .stock-widget {
+      width: 100%; height: 100%;
+      background: var(--light-navy);
+      display: flex; flex-direction: column;
+      padding: 14px 16px; gap: 8px;
+    }
+    .sw-header {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--lightest-navy); padding-bottom: 8px;
+    }
+    .sw-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .sw-time { font-family: var(--font-mono); font-size: 0.62rem; color: var(--slate); }
+    .sw-tickers {
+      flex: 1; display: grid;
+      grid-template-columns: repeat(5, 1fr); gap: 6px; align-items: center;
+    }
+    .sw-ticker {
+      background: var(--navy); border: 1px solid var(--lightest-navy);
+      border-radius: 6px; padding: 6px 8px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .sw-sym { font-family: var(--font-mono); font-size: 0.65rem; color: var(--lightest-slate); font-weight: 600; }
+    .sw-price { font-size: 0.7rem; color: var(--light-slate); }
+    .sw-chg { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; }
+    .sw-chg.up { color: #4ade80; }
+    .sw-chg.dn { color: #f87171; }
+    .sw-skeleton { background: var(--lightest-navy); border-radius: 3px; animation: sw-pulse 1.4s ease infinite; }
+    @keyframes sw-pulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+    .sw-footer {
+      font-size: 0.58rem; color: var(--slate); opacity: .5;
+      text-align: center; padding-top: 6px; border-top: 1px solid var(--lightest-navy);
+    }
   </style>
 </head>
 <body>
@@ -1033,6 +1070,61 @@
           </div>
         </div>
 
+        <!-- Stock Market Monitor Agent -->
+        <div class="flip-wrapper" id="stock-agent-card">
+          <div class="flip-inner">
+            <!-- FRONT -->
+            <div class="flip-front">
+              <div class="project-thumb">
+                <div class="thumb-gradient" style="background:linear-gradient(135deg,#0a1628 0%,#0d2137 50%,#061a10 100%);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-year">2025</span>
+                  <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                  </svg>
+                </div>
+                <div class="project-title">Stock Market Monitor Agent</div>
+                <p class="project-desc">Autonomous agent that watches a configurable watchlist every 30 min, detects price alerts and volume spikes, then uses Claude to write a human-readable summary delivered to Slack or email.</p>
+                <div class="pill-row">
+                  <span class="pill">Node.js</span><span class="pill">Claude claude-opus-4-6</span><span class="pill">Yahoo Finance</span><span class="pill">Slack</span>
+                </div>
+              </div>
+            </div>
+            <!-- BACK — live mini market widget -->
+            <div class="flip-back">
+              <div class="flip-back-bar">
+                <div class="browser-dots">
+                  <span class="browser-dot dot-red"></span>
+                  <span class="browser-dot dot-yellow"></span>
+                  <span class="browser-dot dot-green"></span>
+                </div>
+                <span class="browser-url">stock-agent · live snapshot</span>
+              </div>
+              <div class="stock-widget">
+                <div class="sw-header">
+                  <span class="sw-label">&#9679; Live Market</span>
+                  <span class="sw-time" id="sw-time">loading…</span>
+                </div>
+                <div class="sw-tickers" id="sw-tickers">
+                  <!-- five skeleton placeholders -->
+                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
+                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
+                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
+                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
+                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
+                </div>
+                <div class="sw-footer">Powered by Yahoo Finance &nbsp;·&nbsp; Claude claude-opus-4-6 &nbsp;·&nbsp; hover to refresh</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /.projects-list -->
     </section>
 
@@ -1221,6 +1313,62 @@
         </div>`;
       count.textContent = '';
     });
+})();
+
+/* ── Stock Widget ─────────────────────────────────────────────────────── */
+(function () {
+  const TICKERS = ['AAPL', 'MSFT', 'TSLA', 'NVDA', 'SPY'];
+  const PROXY   = 'https://api.allorigins.win/raw?url=';
+  const YAHOO   = t => `https://query1.finance.yahoo.com/v8/finance/chart/${t}?interval=1d&range=2d`;
+
+  let loaded = false;
+
+  async function fetchTicker(ticker) {
+    const url = PROXY + encodeURIComponent(YAHOO(ticker));
+    const res  = await fetch(url);
+    const data = await res.json();
+    const meta = data?.chart?.result?.[0]?.meta;
+    if (!meta) throw new Error('no data');
+    const price = meta.regularMarketPrice;
+    const prev  = meta.previousClose || meta.chartPreviousClose;
+    const chg   = prev ? ((price - prev) / prev * 100) : 0;
+    return { ticker, price, chg };
+  }
+
+  function render(tickers) {
+    const grid = document.getElementById('sw-tickers');
+    const time = document.getElementById('sw-time');
+    if (!grid || !time) return;
+
+    time.textContent = new Date().toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York'
+    }) + ' ET';
+
+    grid.innerHTML = tickers.map(({ ticker, price, chg, error }) => {
+      if (error) return `<div class="sw-ticker"><span class="sw-sym">${ticker}</span><span class="sw-price">—</span><span class="sw-chg">err</span></div>`;
+      const sign  = chg >= 0 ? '+' : '';
+      const cls   = chg >= 0 ? 'up' : 'dn';
+      const arrow = chg >= 0 ? '▲' : '▼';
+      return `<div class="sw-ticker">
+        <span class="sw-sym">${ticker}</span>
+        <span class="sw-price">$${price.toFixed(2)}</span>
+        <span class="sw-chg ${cls}">${arrow} ${sign}${chg.toFixed(2)}%</span>
+      </div>`;
+    }).join('');
+  }
+
+  async function loadWidget() {
+    if (loaded) return;
+    loaded = true;
+    const results = await Promise.all(
+      TICKERS.map(t => fetchTicker(t).catch(() => ({ ticker: t, error: true })))
+    );
+    render(results);
+  }
+
+  // Trigger on first hover of the card
+  const card = document.getElementById('stock-agent-card');
+  if (card) card.addEventListener('mouseenter', loadWidget, { once: true });
 })();
 </script>
 </body>
