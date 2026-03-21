@@ -671,16 +671,65 @@
       .github-controls { flex-direction: column; }
     }
 
-    /* ─── Stock Widget (flip-back of Stock Agent card) ──────────────── */
-    .stock-widget {
-      width: 100%; height: 100%;
+    /* ─── Featured Projects ─────────────────────────────────────────── */
+    .featured-card {
       background: var(--light-navy);
-      display: flex; flex-direction: column;
-      padding: 14px 16px; gap: 8px;
+      border: 1px solid var(--lightest-navy);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .featured-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 20px 60px -16px rgba(2,12,27,0.8), 0 0 0 1px rgba(100,255,218,0.08);
+    }
+    .featured-card-top {
+      display: flex;
+      gap: 32px;
+      padding: 28px 28px 0;
+      align-items: flex-start;
+    }
+    .featured-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: linear-gradient(135deg,#0a1628 0%,#0d2137 50%,#061a10 100%);
+      border: 1px solid var(--lightest-navy);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .featured-icon svg { width: 22px; height: 22px; color: var(--teal); opacity: 0.8; }
+    .featured-info { flex: 1; min-width: 0; }
+    .featured-meta {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+    }
+    .featured-year { font-family: var(--font-mono); font-size: 0.72rem; color: var(--teal); }
+    .featured-badge {
+      font-family: var(--font-mono); font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--teal); background: rgba(100,255,218,0.08);
+      border: 1px solid rgba(100,255,218,0.2);
+      padding: 2px 8px; border-radius: 20px;
+    }
+    .featured-title {
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--lightest-slate); margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+    .featured-card:hover .featured-title { color: var(--teal); }
+    .featured-desc {
+      font-size: 0.875rem; color: var(--slate); line-height: 1.7; margin-bottom: 14px;
+    }
+
+    /* ─── Stock Widget ───────────────────────────────────────────────── */
+    .stock-widget {
+      background: var(--navy);
+      border-top: 1px solid var(--lightest-navy);
+      margin-top: 20px;
+      padding: 16px 20px;
+      display: flex; flex-direction: column; gap: 10px;
     }
     .sw-header {
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid var(--lightest-navy); padding-bottom: 8px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--lightest-navy);
     }
     .sw-label {
       font-family: var(--font-mono); font-size: 0.68rem;
@@ -688,25 +737,33 @@
     }
     .sw-time { font-family: var(--font-mono); font-size: 0.62rem; color: var(--slate); }
     .sw-tickers {
-      flex: 1; display: grid;
-      grid-template-columns: repeat(5, 1fr); gap: 6px; align-items: center;
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
     }
     .sw-ticker {
-      background: var(--navy); border: 1px solid var(--lightest-navy);
-      border-radius: 6px; padding: 6px 8px;
-      display: flex; flex-direction: column; gap: 2px;
+      background: var(--light-navy); border: 1px solid var(--lightest-navy);
+      border-radius: 8px; padding: 10px 12px;
+      display: flex; flex-direction: column; gap: 4px;
+      transition: border-color 0.2s;
     }
-    .sw-sym { font-family: var(--font-mono); font-size: 0.65rem; color: var(--lightest-slate); font-weight: 600; }
-    .sw-price { font-size: 0.7rem; color: var(--light-slate); }
-    .sw-chg { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; }
+    .sw-ticker:hover { border-color: rgba(100,255,218,0.3); }
+    .sw-sym { font-family: var(--font-mono); font-size: 0.75rem; color: var(--lightest-slate); font-weight: 700; }
+    .sw-price { font-size: 0.8rem; color: var(--light-slate); font-weight: 500; }
+    .sw-chg { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; }
     .sw-chg.up { color: #4ade80; }
     .sw-chg.dn { color: #f87171; }
     .sw-skeleton { background: var(--lightest-navy); border-radius: 3px; animation: sw-pulse 1.4s ease infinite; }
-    @keyframes sw-pulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+    @keyframes sw-pulse { 0%,100%{opacity:.3} 50%{opacity:.8} }
     .sw-footer {
-      font-size: 0.58rem; color: var(--slate); opacity: .5;
-      text-align: center; padding-top: 6px; border-top: 1px solid var(--lightest-navy);
+      font-size: 0.6rem; color: var(--slate); opacity: .45;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 8px; border-top: 1px solid var(--lightest-navy);
     }
+    .sw-refresh-btn {
+      font-family: var(--font-mono); font-size: 0.6rem; color: var(--teal);
+      opacity: .6; cursor: pointer; background: none; border: none;
+      padding: 0; transition: opacity 0.2s;
+    }
+    .sw-refresh-btn:hover { opacity: 1; }
   </style>
 </head>
 <body>
@@ -736,6 +793,9 @@
         </a>
         <a href="#projects"       class="nav-item" data-section="projects">
           <span class="nav-line"></span><span>Projects</span>
+        </a>
+        <a href="#featured"       class="nav-item" data-section="featured">
+          <span class="nav-line"></span><span>Featured</span>
         </a>
         <a href="#github"         class="nav-item" data-section="github">
           <span class="nav-line"></span><span>GitHub</span>
@@ -1070,62 +1130,57 @@
           </div>
         </div>
 
-        <!-- Stock Market Monitor Agent -->
-        <div class="flip-wrapper" id="stock-agent-card">
-          <div class="flip-inner">
-            <!-- FRONT -->
-            <div class="flip-front">
-              <div class="project-thumb">
-                <div class="thumb-gradient" style="background:linear-gradient(135deg,#0a1628 0%,#0d2137 50%,#061a10 100%);">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="project-content">
-                <div class="project-meta">
-                  <span class="project-year">2025</span>
-                  <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-                  </svg>
-                </div>
-                <div class="project-title">Stock Market Monitor Agent</div>
-                <p class="project-desc">Autonomous agent that watches a configurable watchlist every 30 min, detects price alerts and volume spikes, then uses Claude to write a human-readable summary delivered to Slack or email.</p>
-                <div class="pill-row">
-                  <span class="pill">Node.js</span><span class="pill">Claude claude-opus-4-6</span><span class="pill">Yahoo Finance</span><span class="pill">Slack</span>
-                </div>
-              </div>
+      </div><!-- /.projects-list -->
+    </section>
+
+    <!-- ── FEATURED PROJECTS ──────────────────────────────────────── -->
+    <section id="featured" class="section">
+      <div class="section-label">Featured Projects</div>
+
+      <!-- Stock Market Monitor Agent -->
+      <div class="featured-card" id="stock-agent-card">
+        <div class="featured-card-top">
+          <div class="featured-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+            </svg>
+          </div>
+          <div class="featured-info">
+            <div class="featured-meta">
+              <span class="featured-year">2025</span>
+              <span class="featured-badge">&#9679; Live</span>
             </div>
-            <!-- BACK — live mini market widget -->
-            <div class="flip-back">
-              <div class="flip-back-bar">
-                <div class="browser-dots">
-                  <span class="browser-dot dot-red"></span>
-                  <span class="browser-dot dot-yellow"></span>
-                  <span class="browser-dot dot-green"></span>
-                </div>
-                <span class="browser-url">stock-agent · live snapshot</span>
-              </div>
-              <div class="stock-widget">
-                <div class="sw-header">
-                  <span class="sw-label">&#9679; Live Market</span>
-                  <span class="sw-time" id="sw-time">loading…</span>
-                </div>
-                <div class="sw-tickers" id="sw-tickers">
-                  <!-- five skeleton placeholders -->
-                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
-                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
-                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
-                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
-                  <div class="sw-ticker"><div class="sw-skeleton" style="height:10px;width:70%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:8px;width:55%"></div></div>
-                </div>
-                <div class="sw-footer">Powered by Yahoo Finance &nbsp;·&nbsp; Claude claude-opus-4-6 &nbsp;·&nbsp; hover to refresh</div>
-              </div>
+            <div class="featured-title">Stock Market Monitor Agent</div>
+            <p class="featured-desc">Autonomous Node.js agent that watches a configurable watchlist every 30 minutes, detects significant price movements and volume spikes, then calls Claude to produce a human-readable market summary delivered straight to Discord or email. The widget below pulls live prices directly from Yahoo Finance.</p>
+            <div class="pill-row">
+              <span class="pill">Node.js</span>
+              <span class="pill">Claude claude-opus-4-6</span>
+              <span class="pill">Yahoo Finance</span>
+              <span class="pill">Discord</span>
             </div>
           </div>
         </div>
 
-      </div><!-- /.projects-list -->
+        <!-- Live stock widget -->
+        <div class="stock-widget">
+          <div class="sw-header">
+            <span class="sw-label">&#9679; Live Market Snapshot</span>
+            <span class="sw-time" id="sw-time">loading…</span>
+          </div>
+          <div class="sw-tickers" id="sw-tickers">
+            <div class="sw-ticker"><div class="sw-skeleton" style="height:12px;width:60%;margin-bottom:6px"></div><div class="sw-skeleton" style="height:10px;width:80%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:10px;width:50%"></div></div>
+            <div class="sw-ticker"><div class="sw-skeleton" style="height:12px;width:60%;margin-bottom:6px"></div><div class="sw-skeleton" style="height:10px;width:80%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:10px;width:50%"></div></div>
+            <div class="sw-ticker"><div class="sw-skeleton" style="height:12px;width:60%;margin-bottom:6px"></div><div class="sw-skeleton" style="height:10px;width:80%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:10px;width:50%"></div></div>
+            <div class="sw-ticker"><div class="sw-skeleton" style="height:12px;width:60%;margin-bottom:6px"></div><div class="sw-skeleton" style="height:10px;width:80%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:10px;width:50%"></div></div>
+            <div class="sw-ticker"><div class="sw-skeleton" style="height:12px;width:60%;margin-bottom:6px"></div><div class="sw-skeleton" style="height:10px;width:80%;margin-bottom:4px"></div><div class="sw-skeleton" style="height:10px;width:50%"></div></div>
+          </div>
+          <div class="sw-footer">
+            <span>Yahoo Finance &nbsp;·&nbsp; Claude claude-opus-4-6 &nbsp;·&nbsp; auto-loads on scroll</span>
+            <button class="sw-refresh-btn" id="sw-refresh" title="Refresh prices">&#8635; Refresh</button>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ── GITHUB ──────────────────────────────────────────────────── -->
@@ -1321,8 +1376,6 @@
   const PROXY   = 'https://api.allorigins.win/raw?url=';
   const YAHOO   = t => `https://query1.finance.yahoo.com/v8/finance/chart/${t}?interval=1d&range=2d`;
 
-  let loaded = false;
-
   async function fetchTicker(ticker) {
     const url = PROXY + encodeURIComponent(YAHOO(ticker));
     const res  = await fetch(url);
@@ -1345,7 +1398,7 @@
     }) + ' ET';
 
     grid.innerHTML = tickers.map(({ ticker, price, chg, error }) => {
-      if (error) return `<div class="sw-ticker"><span class="sw-sym">${ticker}</span><span class="sw-price">—</span><span class="sw-chg">err</span></div>`;
+      if (error) return `<div class="sw-ticker"><span class="sw-sym">${ticker}</span><span class="sw-price">—</span><span class="sw-chg">—</span></div>`;
       const sign  = chg >= 0 ? '+' : '';
       const cls   = chg >= 0 ? 'up' : 'dn';
       const arrow = chg >= 0 ? '▲' : '▼';
@@ -1358,17 +1411,27 @@
   }
 
   async function loadWidget() {
-    if (loaded) return;
-    loaded = true;
     const results = await Promise.all(
       TICKERS.map(t => fetchTicker(t).catch(() => ({ ticker: t, error: true })))
     );
     render(results);
   }
 
-  // Trigger on first hover of the card
+  // Auto-load when the card scrolls into view
   const card = document.getElementById('stock-agent-card');
-  if (card) card.addEventListener('mouseenter', loadWidget, { once: true });
+  if (card) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        loadWidget();
+        io.disconnect();
+      }
+    }, { threshold: 0.2 });
+    io.observe(card);
+  }
+
+  // Refresh button
+  const btn = document.getElementById('sw-refresh');
+  if (btn) btn.addEventListener('click', loadWidget);
 })();
 </script>
 </body>
