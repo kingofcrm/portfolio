@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vinod Shivhare — Engineering Leader at Salesforce building enterprise software in the Revenue domain.">
+  <meta property="og:title" content="Vinod Shivhare — Engineering Leader">
+  <meta property="og:description" content="Technology leader building enterprise software at Salesforce.">
+  <title>Vinod Shivhare — Engineering Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Variables ────────────────────────────────────────────────── */
+    :root {
+      --navy:            #0a192f;
+      --light-navy:      #112240;
+      --lightest-navy:   #233554;
+      --teal:            #64ffda;
+      --teal-tint:       rgba(100,255,218,0.10);
+      --teal-tint2:      rgba(100,255,218,0.18);
+      --slate:           #8892b0;
+      --light-slate:     #a8b2d8;
+      --lightest-slate:  #ccd6f6;
+      --white:           #e6f1ff;
+      --font-mono:       'Fira Code', monospace;
+      --ease:            cubic-bezier(0.645,0.045,0.355,1);
+      --transition:      all 0.25s var(--ease);
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--slate);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+    /* ─── Spotlight ─────────────────────────────────────────────────── */
+    #spotlight {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      transition: background 0.08s;
+      background: radial-gradient(600px at -100px -100px, rgba(100,255,218,0.06), transparent 80%);
+    }
+
+    /* ─── Layout ────────────────────────────────────────────────────── */
+    .layout {
+      display: flex;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 64px;
+      min-height: 100vh;
+    }
+
+    /* ─── Left Panel ────────────────────────────────────────────────── */
+    .left-panel {
+      width: 380px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      padding: 96px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .left-top { flex: 1; }
+
+    .profile-name {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--lightest-slate);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .profile-title {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--light-slate);
+      margin-bottom: 16px;
+    }
+    .profile-bio {
+      font-size: 0.875rem;
+      color: var(--slate);
+      max-width: 300px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* Nav */
+    .nav { display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 0;
+      color: var(--slate);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      width: fit-content;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--lightest-slate); }
+    .nav-line {
+      display: block;
+      height: 1px;
+      width: 32px;
+      background: var(--slate);
+      transition: width 0.25s var(--ease), background 0.25s var(--ease);
+      flex-shrink: 0;
+    }
+    .nav-item:hover .nav-line,
+    .nav-item.active .nav-line {
+      width: 72px;
+      background: var(--lightest-slate);
+    }
+    .nav-item.active { color: var(--lightest-slate); }
+
+    /* Social Icons */
+    .social-row {
+      display: flex;
+      gap: 20px;
+      padding-top: 40px;
+      align-items: center;
+    }
+    .social-link {
+      color: var(--slate);
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+    }
+    .social-link:hover { color: var(--teal); transform: translateY(-3px); }
+    .social-link svg { width: 22px; height: 22px; }
+
+    /* ─── Right Panel ───────────────────────────────────────────────── */
+    .right-panel {
+      flex: 1;
+      padding: 96px 0 128px 80px;
+      min-width: 0;
+    }
+
+    /* ─── Section ───────────────────────────────────────────────────── */
+    .section {
+      margin-bottom: 96px;
+      scroll-margin-top: 80px;
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lightest-slate);
+      margin-bottom: 32px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--lightest-navy);
+    }
+
+    /* ─── About ─────────────────────────────────────────────────────── */
+    .about-text p {
+      color: var(--slate);
+      margin-bottom: 16px;
+      line-height: 1.75;
+      font-size: 0.9375rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text a {
+      color: var(--teal);
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+    .about-text a:hover { border-bottom-color: var(--teal); }
+
+    .skills-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-slate);
+      margin: 32px 0 12px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+      background: var(--teal-tint);
+      border: 1px solid rgba(100,255,218,0.2);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .pill:hover {
+      background: var(--teal-tint2);
+      border-color: rgba(100,255,218,0.4);
+    }
+
+    /* ─── Cards (shared) ────────────────────────────────────────────── */
+    .card {
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      position: relative;
+    }
+    .card:hover {
+      background: var(--light-navy);
+      border-color: var(--lightest-navy);
+      box-shadow: 0 16px 48px -12px rgba(2,12,27,0.7);
+    }
+    .card-arrow {
+      transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+      color: var(--slate);
+      flex-shrink: 0;
+    }
+    .card:hover .card-arrow { transform: translate(4px,-4px); color: var(--teal); }
+
+    /* ─── Certifications ────────────────────────────────────────────── */
+    .cert-list { display: flex; flex-direction: column; gap: 4px; }
+    .cert-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .cert-icon-wrap {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--teal-tint);
+      border-radius: 10px;
+      color: var(--teal);
+      border: 1px solid rgba(100,255,218,0.15);
+      transition: var(--transition);
+    }
+    .cert-card:hover .cert-icon-wrap { background: var(--teal-tint2); }
+    .cert-body { flex: 1; min-width: 0; }
+    .cert-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--lightest-slate);
+      margin-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .cert-card:hover .cert-title { color: var(--teal); }
+    .cert-issuer { font-size: 0.8rem; color: var(--slate); }
+
+    /* ─── Projects ──────────────────────────────────────────────────── */
+    .projects-list { display: flex; flex-direction: column; gap: 4px; }
+    .project-card {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .project-thumb {
+      width: 148px;
+      height: 96px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid var(--lightest-navy);
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition);
+    }
+    .project-card:hover .project-thumb {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px rgba(100,255,218,0.1);
+    }
+    .thumb-gradient {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .thumb-gradient svg { opacity: 0.35; width: 40px; height: 40px; color: var(--teal); }
+    .project-content { flex: 1; min-width: 0; }
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .project-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+    }
+    .project-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .project-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--lightest-slate);
+      transition: color 0.2s;
+      line-height: 1.3;
+    }
+    .project-card:hover .project-title { color: var(--teal); }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--slate);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    /* ─── GitHub Section ────────────────────────────────────────────── */
+    .github-controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .gh-search {
+      flex: 1;
+      min-width: 180px;
+      background: var(--light-navy);
+      border: 1px solid var(--lightest-navy);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: var(--lightest-slate);
+      font-size: 0.875rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: var(--transition);
+    }
+    .gh-search::placeholder { color: var(--slate); }
+    .gh-search:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px rgba(100,255,218,0.08);
+    }
+    .gh-sort {
+      background: var(--light-navy);
+      border: 1px solid var(--lightest-navy);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--lightest-slate);
+      font-size: 0.875rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .gh-sort:focus { border-color: var(--teal); }
+
+    .repos-grid { display: flex; flex-direction: column; gap: 10px; }
+    .repo-card {
+      border-radius: 10px;
+      padding: 18px 22px;
+      background: var(--light-navy);
+      border: 1px solid var(--lightest-navy);
+      transition: var(--transition);
+    }
+    .repo-card:hover {
+      border-color: rgba(100,255,218,0.35);
+      box-shadow: 0 4px 20px rgba(100,255,218,0.04);
+      transform: translateY(-1px);
+    }
+    .repo-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .repo-name-link {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--lightest-slate);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .repo-name-link:hover { color: var(--teal); }
+    .repo-name-link:hover .r-arrow { transform: translate(3px,-3px); }
+    .r-arrow { font-size: 0.8rem; transition: transform 0.2s var(--ease); display: inline-block; }
+    .repo-desc {
+      font-size: 0.8125rem;
+      color: var(--slate);
+      margin-bottom: 12px;
+      line-height: 1.55;
+    }
+    .repo-footer {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.75rem;
+      color: var(--slate);
+    }
+    .lang-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .repo-stat { display: flex; align-items: center; gap: 4px; }
+    .live-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--teal);
+      background: var(--teal-tint);
+      border: 1px solid rgba(100,255,218,0.2);
+      padding: 2px 10px;
+      border-radius: 9999px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .live-btn:hover { background: var(--teal-tint2); }
+    .gh-empty {
+      text-align: center;
+      color: var(--slate);
+      padding: 48px 0;
+      font-size: 0.875rem;
+    }
+    .gh-count {
+      font-size: 0.78rem;
+      color: var(--slate);
+      margin-bottom: 14px;
+      font-family: var(--font-mono);
+    }
+
+    /* ─── Skeleton ──────────────────────────────────────────────────── */
+    .sk {
+      background: linear-gradient(90deg, var(--light-navy) 25%, var(--lightest-navy) 50%, var(--light-navy) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 6px;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .sk-card {
+      border-radius: 10px;
+      padding: 18px 22px;
+      background: var(--light-navy);
+      border: 1px solid var(--lightest-navy);
+      margin-bottom: 10px;
+    }
+    .sk-line { height: 14px; margin-bottom: 8px; }
+    .sk-sm { height: 10px; width: 60%; }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    .footer {
+      padding: 40px 0 0;
+      font-size: 0.78rem;
+      color: var(--slate);
+      font-family: var(--font-mono);
+      line-height: 1.7;
+    }
+    .footer a { color: var(--teal); transition: opacity 0.2s; }
+    .footer a:hover { opacity: 0.8; }
+
+    /* ─── Fade-in animation ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.5s var(--ease) both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ─── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .layout { padding: 0 40px; }
+      .left-panel { width: 320px; }
+      .profile-name { font-size: 2.4rem; }
+    }
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+        padding: 56px 32px 80px;
+      }
+      .left-panel {
+        width: 100%;
+        position: relative;
+        height: auto;
+        padding: 0 0 48px;
+        overflow: visible;
+      }
+      .left-top { flex: none; }
+      .nav { display: none; }
+      .right-panel { padding: 0; }
+      .profile-name { font-size: 2.6rem; }
+      .profile-bio { max-width: none; }
+    }
+    @media (max-width: 640px) {
+      .layout { padding: 48px 20px 80px; }
+      .profile-name { font-size: 2rem; }
+      .project-card { flex-direction: column; }
+      .project-thumb { width: 100%; height: 140px; }
+      .github-controls { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Spotlight ───────────────────────────────────────────────────── -->
+<div id="spotlight"></div>
+
+<!-- ── Layout ─────────────────────────────────────────────────────── -->
+<div class="layout">
+
+  <!-- ── LEFT PANEL ─────────────────────────────────────────────── -->
+  <aside class="left-panel">
+    <div class="left-top">
+      <p class="profile-name fade-up">Vinod<br>Shivhare</p>
+      <p class="profile-title fade-up delay-1">Engineering Leader</p>
+      <p class="profile-bio fade-up delay-2">
+        Building enterprise software &amp; leading engineering teams at
+        <a href="https://www.salesforce.com" target="_blank" rel="noopener" style="color:var(--teal);border-bottom:1px solid transparent;transition:var(--transition)">Salesforce</a>.
+        Specialising in Revenue · Quote-to-Cash · AI/LLM.
+      </p>
+      <nav class="nav fade-up delay-3" id="main-nav">
+        <a href="#about"          class="nav-item active" data-section="about">
+          <span class="nav-line"></span><span>About</span>
+        </a>
+        <a href="#certifications" class="nav-item"         data-section="certifications">
+          <span class="nav-line"></span><span>Certifications</span>
+        </a>
+        <a href="#projects"       class="nav-item"         data-section="projects">
+          <span class="nav-line"></span><span>Projects</span>
+        </a>
+        <a href="#github"         class="nav-item"         data-section="github">
+          <span class="nav-line"></span><span>GitHub</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Social -->
+    <div class="social-row fade-up delay-4">
+      <!-- GitHub -->
+      <a href="https://github.com/kingofcrm" target="_blank" rel="noopener" class="social-link" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/vinods-9071aa29/" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:v.shivhare@gmail.com" class="social-link" title="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </a>
+      <!-- Resume / CV icon -->
+      <a href="https://www.linkedin.com/in/vinods-9071aa29/" target="_blank" rel="noopener" class="social-link" title="LinkedIn Profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT PANEL ─────────────────────────────────────────────── -->
+  <main class="right-panel">
+
+    <!-- ── ABOUT ──────────────────────────────────────────────────── -->
+    <section id="about" class="section">
+      <div class="section-label">About</div>
+      <div class="about-text">
+        <p>
+          I'm a technology leader with deep experience building enterprise software and
+          leading high-performing engineering teams at
+          <a href="https://www.salesforce.com" target="_blank" rel="noopener">Salesforce</a>.
+          My focus is on the <strong style="color:var(--light-slate)">Revenue domain</strong>—
+          Quote-to-Cash and Order-to-Cash—where mission-critical applications drive
+          billions of dollars in business value.
+        </p>
+        <p>
+          I own the product roadmap, capacity planning, resource allocation, risk assessment,
+          and release planning for my organisation. I'm passionate about
+          <strong style="color:var(--light-slate)">AI/LLM</strong> and
+          <strong style="color:var(--light-slate)">Agentforce</strong>—building intelligent,
+          agentic experiences on the Salesforce platform.
+        </p>
+        <p>
+          Outside of enterprise work I build personal projects at the intersection of
+          fitness, culture, and finance—usually in vanilla JavaScript, always with a focus
+          on user experience and performance.
+        </p>
+        <p style="font-size:0.82rem; color:var(--slate)">
+          📍 Dallas–Fort Worth Metroplex &nbsp;·&nbsp;
+          <a href="mailto:v.shivhare@gmail.com">v.shivhare@gmail.com</a>
+        </p>
+      </div>
+
+      <div class="skills-label">Technologies &amp; Skills</div>
+      <div class="pill-row">
+        <span class="pill">Salesforce CRM</span>
+        <span class="pill">Agentforce</span>
+        <span class="pill">AI / LLM</span>
+        <span class="pill">MuleSoft</span>
+        <span class="pill">Apex</span>
+        <span class="pill">Lightning Web Components</span>
+        <span class="pill">Tableau</span>
+        <span class="pill">Visualforce</span>
+        <span class="pill">REST APIs</span>
+        <span class="pill">SOAP / WSDL</span>
+        <span class="pill">Java</span>
+        <span class="pill">JavaScript</span>
+        <span class="pill">Agile / Scrum</span>
+        <span class="pill">Team Leadership</span>
+        <span class="pill">M&amp;A Integration</span>
+      </div>
+    </section>
+
+    <!-- ── CERTIFICATIONS ─────────────────────────────────────────── -->
+    <section id="certifications" class="section">
+      <div class="section-label">Certifications</div>
+      <div class="cert-list">
+
+        <!-- 1 -->
+        <div class="card cert-card">
+          <div class="cert-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+            </svg>
+          </div>
+          <div class="cert-body">
+            <div class="cert-title">Salesforce Certified Administrator</div>
+            <div class="cert-issuer">Salesforce · CRM Platform</div>
+          </div>
+          <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </div>
+
+        <!-- 2 -->
+        <div class="card cert-card">
+          <div class="cert-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="cert-body">
+            <div class="cert-title">Salesforce Authorized Consultant</div>
+            <div class="cert-issuer">Salesforce · Consulting &amp; Implementation</div>
+          </div>
+          <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </div>
+
+        <!-- 3 -->
+        <div class="card cert-card">
+          <div class="cert-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="cert-body">
+            <div class="cert-title">Salesforce Certified AI Associate</div>
+            <div class="cert-issuer">Salesforce · Artificial Intelligence</div>
+          </div>
+          <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </div>
+
+        <!-- 4 -->
+        <div class="card cert-card">
+          <div class="cert-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div class="cert-body">
+            <div class="cert-title">IBM Certified SOA Associate</div>
+            <div class="cert-issuer">IBM · Service-Oriented Architecture</div>
+          </div>
+          <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </div>
+
+        <!-- 5 -->
+        <div class="card cert-card">
+          <div class="cert-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <div class="cert-body">
+            <div class="cert-title">Sun Certified Java Programmer</div>
+            <div class="cert-issuer">Sun Microsystems / Oracle · Java SE</div>
+          </div>
+          <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ───────────────────────────────────────────────── -->
+    <section id="projects" class="section">
+      <div class="section-label">Projects</div>
+      <div class="projects-list">
+
+        <!-- 1 · Fitness Tracker -->
+        <a href="https://github.com/kingofcrm/fitness-tracker" target="_blank" rel="noopener"
+           class="card project-card" style="text-decoration:none">
+          <div class="project-thumb">
+            <div class="thumb-gradient" style="background:linear-gradient(135deg,#0d2137 0%,#1a3a5c 60%,#0a2a1a 100%);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-year">2024</span>
+              <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+              </svg>
+            </div>
+            <div class="project-title">Fitness Tracker</div>
+            <p class="project-desc">
+              A personal fitness tracking application to log workouts, monitor progress,
+              and set health goals with an intuitive dashboard.
+            </p>
+            <div class="pill-row">
+              <span class="pill">JavaScript</span>
+              <span class="pill">HTML</span>
+              <span class="pill">CSS</span>
+              <span class="pill">REST APIs</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2 · Bollywood Antakshari -->
+        <a href="https://github.com/kingofcrm/antakshari" target="_blank" rel="noopener"
+           class="card project-card" style="text-decoration:none">
+          <div class="project-thumb">
+            <div class="thumb-gradient" style="background:linear-gradient(135deg,#1a0d24 0%,#3d1452 60%,#1a0e0d 100%);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-year">2023</span>
+              <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+              </svg>
+            </div>
+            <div class="project-title">Bollywood Antakshari</div>
+            <p class="project-desc">
+              An interactive Bollywood music game where players continue songs from the
+              last letter of the previous song—a digital take on the classic Indian party game.
+            </p>
+            <div class="pill-row">
+              <span class="pill">JavaScript</span>
+              <span class="pill">HTML</span>
+              <span class="pill">CSS</span>
+              <span class="pill">Music APIs</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3 · Tax Planner -->
+        <a href="https://github.com/kingofcrm/tax-planner" target="_blank" rel="noopener"
+           class="card project-card" style="text-decoration:none">
+          <div class="project-thumb">
+            <div class="thumb-gradient" style="background:linear-gradient(135deg,#0d1f0d 0%,#1a3d2e 60%,#0d1a24 100%);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-meta">
+              <span class="project-year">2024</span>
+              <svg class="card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+              </svg>
+            </div>
+            <div class="project-title">Tax Planner</div>
+            <p class="project-desc">
+              A smart tax planning tool that helps users estimate liabilities, explore
+              deductions, and plan finances effectively for the fiscal year.
+            </p>
+            <div class="pill-row">
+              <span class="pill">JavaScript</span>
+              <span class="pill">HTML</span>
+              <span class="pill">CSS</span>
+              <span class="pill">Financial APIs</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── GITHUB ──────────────────────────────────────────────────── -->
+    <section id="github" class="section">
+      <div class="section-label">GitHub Repositories</div>
+
+      <div class="github-controls">
+        <input class="gh-search" id="gh-search" type="text" placeholder="Search repositories…" autocomplete="off">
+        <select class="gh-sort" id="gh-sort">
+          <option value="updated">Recent</option>
+          <option value="stars">Stars</option>
+          <option value="forks">Forks</option>
+          <option value="az">A – Z</option>
+        </select>
+      </div>
+
+      <div class="gh-count" id="gh-count"></div>
+      <div class="repos-grid" id="repos-grid">
+        <!-- skeleton placeholders -->
+        <div class="sk-card"><div class="sk sk-line" style="width:40%"></div><div class="sk sk-line" style="width:80%"></div><div class="sk sk-sm"></div></div>
+        <div class="sk-card"><div class="sk sk-line" style="width:55%"></div><div class="sk sk-line" style="width:70%"></div><div class="sk sk-sm"></div></div>
+        <div class="sk-card"><div class="sk sk-line" style="width:35%"></div><div class="sk sk-line" style="width:90%"></div><div class="sk sk-sm"></div></div>
+        <div class="sk-card"><div class="sk sk-line" style="width:60%"></div><div class="sk sk-line" style="width:65%"></div><div class="sk sk-sm"></div></div>
+        <div class="sk-card"><div class="sk sk-line" style="width:45%"></div><div class="sk sk-line" style="width:75%"></div><div class="sk sk-sm"></div></div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <p>Designed &amp; built by <strong style="color:var(--light-slate)">Vinod Shivhare</strong>
+        · Inspired by <a href="https://brittanychiang.com" target="_blank" rel="noopener">brittanychiang.com</a></p>
+      <p style="margin-top:4px; font-size:0.72rem; opacity:.6">
+        Dallas–Fort Worth &nbsp;·&nbsp; 2025
+      </p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- ── SCRIPTS ─────────────────────────────────────────────────────── -->
+<script>
+/* ── Spotlight ──────────────────────────────────────────────────────── */
+(function() {
+  const el = document.getElementById('spotlight');
+  let raf;
+  document.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      el.style.background =
+        `radial-gradient(600px at ${e.clientX}px ${e.clientY}px, rgba(100,255,218,0.06), transparent 80%)`;
+    });
+  });
+})();
+
+/* ── Scroll-spy (IntersectionObserver) ─────────────────────────────── */
+(function() {
+  const navItems = document.querySelectorAll('.nav-item[data-section]');
+  const sections = Array.from(navItems).map(n => document.getElementById(n.dataset.section));
+
+  const setActive = id => {
+    navItems.forEach(n => n.classList.toggle('active', n.dataset.section === id));
+  };
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => s && io.observe(s));
+
+  navItems.forEach(n => {
+    n.addEventListener('click', ev => {
+      ev.preventDefault();
+      const target = document.getElementById(n.dataset.section);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+
+/* ── GitHub Repos ───────────────────────────────────────────────────── */
+(function() {
+  const LANG_COLORS = {
+    'JavaScript':       '#f1e05a',
+    'TypeScript':       '#3178c6',
+    'Python':           '#3572A5',
+    'HTML':             '#e34c26',
+    'CSS':              '#563d7c',
+    'SCSS':             '#c6538c',
+    'Java':             '#b07219',
+    'Kotlin':           '#A97BFF',
+    'Swift':            '#F05138',
+    'Go':               '#00ADD8',
+    'Rust':             '#dea584',
+    'Ruby':             '#701516',
+    'PHP':              '#4F5D95',
+    'C':                '#555555',
+    'C++':              '#f34b7d',
+    'C#':               '#178600',
+    'Shell':            '#89e051',
+    'Dart':             '#00B4AB',
+    'Vue':              '#41b883',
+    'Svelte':           '#ff3e00',
+    'Jupyter Notebook': '#DA5B0B',
+    'Dockerfile':       '#384d54',
+    'Makefile':         '#427819',
+  };
+
+  const STAR_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  const FORK_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>`;
+
+  let allRepos = [];
+  const grid  = document.getElementById('repos-grid');
+  const count = document.getElementById('gh-count');
+  const search = document.getElementById('gh-search');
+  const sortSel = document.getElementById('gh-sort');
+
+  function timeAgo(str) {
+    const diff = Date.now() - new Date(str);
+    const d = Math.floor(diff / 86400000);
+    if (d < 1)  return 'today';
+    if (d < 30) return `${d}d ago`;
+    const m = Math.floor(d / 30);
+    if (m < 12) return `${m}mo ago`;
+    return `${Math.floor(m/12)}y ago`;
+  }
+
+  function renderRepos(repos) {
+    if (!repos.length) {
+      grid.innerHTML = '<div class="gh-empty">No repositories found.</div>';
+      count.textContent = '';
+      return;
+    }
+    count.textContent = `Showing ${repos.length} repositor${repos.length === 1 ? 'y' : 'ies'}`;
+    grid.innerHTML = repos.map(r => {
+      const langColor = LANG_COLORS[r.language] || '#8892b0';
+      const langBadge = r.language
+        ? `<span class="lang-badge"><span class="lang-dot" style="background:${langColor}"></span>${r.language}</span>`
+        : '';
+      const liveBtnHtml = r.homepage
+        ? `<a href="${r.homepage}" target="_blank" rel="noopener" class="live-btn" onclick="event.stopPropagation()">Live ↗</a>`
+        : '';
+      return `
+      <div class="repo-card">
+        <div class="repo-top">
+          <a href="${r.html_url}" target="_blank" rel="noopener" class="repo-name-link">
+            ${r.name} <span class="r-arrow">↗</span>
+          </a>
+          ${liveBtnHtml}
+        </div>
+        <p class="repo-desc">${r.description || 'No description available.'}</p>
+        <div class="repo-footer">
+          ${langBadge}
+          <span class="repo-stat">${STAR_SVG} ${r.stargazers_count}</span>
+          <span class="repo-stat">${FORK_SVG} ${r.forks_count}</span>
+          <span>Updated ${timeAgo(r.updated_at)}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function applyFilters() {
+    const q = search.value.trim().toLowerCase();
+    const s = sortSel.value;
+    let filtered = allRepos.filter(r =>
+      !r.fork &&
+      (!q || r.name.toLowerCase().includes(q) || (r.description||'').toLowerCase().includes(q))
+    );
+    if (s === 'stars')   filtered.sort((a,b) => b.stargazers_count - a.stargazers_count);
+    else if (s === 'forks') filtered.sort((a,b) => b.forks_count - a.forks_count);
+    else if (s === 'az')    filtered.sort((a,b) => a.name.localeCompare(b.name));
+    else filtered.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+    renderRepos(filtered);
+  }
+
+  search.addEventListener('input', applyFilters);
+  sortSel.addEventListener('change', applyFilters);
+
+  fetch('https://api.github.com/users/kingofcrm/repos?sort=updated&per_page=100')
+    .then(r => {
+      if (!r.ok) throw new Error(`GitHub API ${r.status}`);
+      return r.json();
+    })
+    .then(data => {
+      allRepos = data;
+      applyFilters();
+    })
+    .catch(err => {
+      grid.innerHTML = `
+        <div class="gh-empty">
+          <p style="color:var(--teal)">Could not load repositories.</p>
+          <p style="margin-top:8px;font-size:0.78rem">${err.message} — GitHub API may be rate-limited.</p>
+          <p style="margin-top:4px;font-size:0.78rem">
+            <a href="https://github.com/kingofcrm?tab=repositories" target="_blank" rel="noopener"
+               style="color:var(--teal);border-bottom:1px solid var(--teal)">
+              View all repositories on GitHub ↗
+            </a>
+          </p>
+        </div>`;
+      count.textContent = '';
+    });
+})();
+</script>
+</body>
+</html>
