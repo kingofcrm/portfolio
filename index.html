@@ -832,6 +832,254 @@
       padding: 0; transition: opacity 0.2s;
     }
     .sw-refresh-btn:hover { opacity: 1; }
+
+    /* ─── Vinod AI Chat Widget ───────────────────────────────────────── */
+    #vai-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9000;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.45);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    #vai-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 28px rgba(249,115,22,0.55);
+    }
+    #vai-btn svg { width: 24px; height: 24px; transition: opacity 0.2s; }
+    #vai-btn .vai-icon-close { display: none; }
+
+    #vai-panel {
+      position: fixed;
+      bottom: 96px;
+      right: 28px;
+      z-index: 8999;
+      width: 360px;
+      max-height: 560px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(16px) scale(0.97);
+      pointer-events: none;
+      transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+    }
+    #vai-panel.vai-open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    .vai-header {
+      background: var(--sidebar-bg);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .vai-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange) 0%, #fbbf24 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .vai-header-info { flex: 1; }
+    .vai-header-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .vai-header-sub {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .vai-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .vai-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      background: #f8faff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+    }
+    .vai-messages::-webkit-scrollbar { width: 4px; }
+    .vai-messages::-webkit-scrollbar-track { background: transparent; }
+    .vai-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+    .vai-msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+    .vai-msg.vai-user { flex-direction: row-reverse; }
+
+    .vai-msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange) 0%, #fbbf24 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      color: #fff;
+      font-weight: 700;
+    }
+    .vai-msg.vai-user .vai-msg-avatar {
+      background: #e2e8f0;
+      color: #6b7280;
+    }
+
+    .vai-bubble {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.845rem;
+      line-height: 1.55;
+      color: var(--text-2);
+    }
+    .vai-msg.vai-agent .vai-bubble {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .vai-msg.vai-user .vai-bubble {
+      background: var(--orange);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .vai-typing {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 10px 14px;
+    }
+    .vai-typing span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #9ca3af;
+      animation: vai-bounce 1.2s infinite ease-in-out;
+    }
+    .vai-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .vai-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes vai-bounce {
+      0%,80%,100% { transform: translateY(0); }
+      40%          { transform: translateY(-6px); }
+    }
+
+    .vai-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 14px 10px;
+      background: #f8faff;
+    }
+    .vai-chip {
+      font-size: 0.72rem;
+      color: var(--orange-dark);
+      background: var(--orange-tint);
+      border: 1px solid rgba(249,115,22,0.22);
+      padding: 4px 11px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .vai-chip:hover {
+      background: var(--orange-tint2);
+      border-color: rgba(249,115,22,0.4);
+    }
+
+    .vai-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+    #vai-input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      outline: none;
+      background: #f8faff;
+      transition: border-color 0.2s;
+    }
+    #vai-input:focus { border-color: rgba(249,115,22,0.45); }
+    #vai-input::placeholder { color: #9ca3af; }
+    #vai-send {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    #vai-send:hover { background: var(--orange-dark); }
+    #vai-send:disabled { background: #d1d5db; cursor: not-allowed; }
+    #vai-send svg { width: 16px; height: 16px; }
+
+    .vai-offline {
+      font-size: 0.78rem;
+      color: #dc2626;
+      background: #fff1f2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      padding: 8px 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      #vai-panel { width: calc(100vw - 32px); right: 16px; bottom: 88px; }
+      #vai-btn   { right: 16px; bottom: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -1280,6 +1528,58 @@
   </main>
 </div>
 
+<!-- ── VINOD AI CHAT WIDGET ──────────────────────────────────────────── -->
+
+<!-- Floating button -->
+<button id="vai-btn" title="Ask Vinod AI" aria-label="Open AI chat">
+  <svg class="vai-icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <svg class="vai-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>
+</button>
+
+<!-- Chat panel -->
+<div id="vai-panel" role="dialog" aria-label="Vinod AI chat">
+
+  <!-- Header -->
+  <div class="vai-header">
+    <div class="vai-avatar">🤖</div>
+    <div class="vai-header-info">
+      <div class="vai-header-name">Vinod AI</div>
+      <div class="vai-header-sub">
+        <span class="vai-dot"></span>Ask me anything about Vinod
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="vai-messages" id="vai-messages"></div>
+
+  <!-- Quick-start chips (hidden after first user message) -->
+  <div class="vai-suggestions" id="vai-chips">
+    <button class="vai-chip">Current role?</button>
+    <button class="vai-chip">Certifications?</button>
+    <button class="vai-chip">Key skills?</button>
+    <button class="vai-chip">Work history?</button>
+    <button class="vai-chip">Education?</button>
+    <button class="vai-chip">Personal projects?</button>
+    <button class="vai-chip">Awards?</button>
+  </div>
+
+  <!-- Input -->
+  <div class="vai-input-row">
+    <input id="vai-input" type="text" placeholder="Ask about Vinod…" autocomplete="off" maxlength="400">
+    <button id="vai-send" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+
+</div>
+
 <!-- ── SCRIPTS ─────────────────────────────────────────────────────── -->
 <script>
 
@@ -1486,6 +1786,156 @@
   // Refresh button
   const btn = document.getElementById('sw-refresh');
   if (btn) btn.addEventListener('click', loadWidget);
+})();
+
+/* ── Vinod AI Chat Widget ────────────────────────────────────────────── */
+(function () {
+  const AGENT_URL  = 'http://localhost:3002/api/chat';
+  const panel      = document.getElementById('vai-panel');
+  const toggleBtn  = document.getElementById('vai-btn');
+  const messagesEl = document.getElementById('vai-messages');
+  const input      = document.getElementById('vai-input');
+  const sendBtn    = document.getElementById('vai-send');
+  const chipsEl    = document.getElementById('vai-chips');
+  const iconChat   = toggleBtn.querySelector('.vai-icon-chat');
+  const iconClose  = toggleBtn.querySelector('.vai-icon-close');
+
+  let isOpen      = false;
+  let isThinking  = false;
+  let history     = [];        // {role, content}[]
+  let greeted     = false;
+
+  /* ── Toggle panel ─────────────────────────────────────────────────── */
+  function togglePanel () {
+    isOpen = !isOpen;
+    panel.classList.toggle('vai-open', isOpen);
+    iconChat.style.display  = isOpen ? 'none'  : 'block';
+    iconClose.style.display = isOpen ? 'block' : 'none';
+    if (isOpen && !greeted) { greet(); greeted = true; }
+    if (isOpen) setTimeout(() => input.focus(), 240);
+  }
+  toggleBtn.addEventListener('click', togglePanel);
+
+  /* ── Greeting ─────────────────────────────────────────────────────── */
+  function greet () {
+    appendMsg('agent', "Hi! 👋 I'm Vinod AI. Ask me anything about Vinod's experience, skills, projects, certifications, or career journey.");
+  }
+
+  /* ── Append a message bubble ──────────────────────────────────────── */
+  function appendMsg (role, text) {
+    const isUser   = role === 'user';
+    const wrapper  = document.createElement('div');
+    wrapper.className = `vai-msg vai-${isUser ? 'user' : 'agent'}`;
+
+    const avatarEl = document.createElement('div');
+    avatarEl.className = 'vai-msg-avatar';
+    avatarEl.textContent = isUser ? '👤' : '🤖';
+
+    const bubble   = document.createElement('div');
+    bubble.className = 'vai-bubble';
+    bubble.textContent = text;
+
+    wrapper.append(avatarEl, bubble);
+    messagesEl.appendChild(wrapper);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrapper;
+  }
+
+  /* ── Typing indicator ─────────────────────────────────────────────── */
+  function showTyping () {
+    const wrapper  = document.createElement('div');
+    wrapper.className = 'vai-msg vai-agent';
+    wrapper.id = 'vai-typing-row';
+
+    const avatarEl = document.createElement('div');
+    avatarEl.className = 'vai-msg-avatar';
+    avatarEl.textContent = '🤖';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'vai-bubble';
+    bubble.innerHTML = '<div class="vai-typing"><span></span><span></span><span></span></div>';
+
+    wrapper.append(avatarEl, bubble);
+    messagesEl.appendChild(wrapper);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+  function hideTyping () {
+    const el = document.getElementById('vai-typing-row');
+    if (el) el.remove();
+  }
+
+  /* ── Send a message ───────────────────────────────────────────────── */
+  async function sendMessage (text) {
+    if (!text.trim() || isThinking) return;
+
+    // Hide suggestion chips after first real message
+    chipsEl.style.display = 'none';
+
+    appendMsg('user', text);
+    history.push({ role: 'user', content: text });
+    input.value   = '';
+    isThinking    = true;
+    sendBtn.disabled = true;
+
+    showTyping();
+
+    try {
+      const res = await fetch(AGENT_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ messages: history }),
+      });
+
+      hideTyping();
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json();
+      const reply = data.content || 'Sorry, I could not get a response.';
+      appendMsg('agent', reply);
+      history.push({ role: 'assistant', content: reply });
+
+    } catch (err) {
+      hideTyping();
+      // Check if it's a network / connection error (agent not running)
+      const isOffline = err.message.includes('fetch') || err.message.includes('Failed') || err.message.includes('network');
+      const msg = isOffline
+        ? '⚠️ The AI agent isn\'t running locally. Start it with: cd portfolio-agent && npm start'
+        : `⚠️ ${err.message}`;
+
+      const offlineEl = document.createElement('div');
+      offlineEl.className = 'vai-offline';
+      offlineEl.textContent = msg;
+      messagesEl.appendChild(offlineEl);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+
+      // Remove bad entry from history
+      history.pop();
+    } finally {
+      isThinking = false;
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  }
+
+  /* ── Event bindings ───────────────────────────────────────────────── */
+  sendBtn.addEventListener('click', () => sendMessage(input.value));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(input.value); }
+  });
+
+  // Suggestion chips
+  chipsEl.querySelectorAll('.vai-chip').forEach(chip => {
+    chip.addEventListener('click', () => sendMessage(chip.textContent));
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && isOpen) togglePanel();
+  });
 })();
 </script>
 </body>

@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI chat agent for Vinod Shivhare's portfolio — answers questions using resume context",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2"
+  }
+}
