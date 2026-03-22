@@ -9,72 +9,78 @@
   <title>Vinod Shivhare — Engineering Leader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* ─── Variables — Python.org Theme ──────────────────────────────── */
+    /* ─── Variables — Claude / Anthropic Theme ──────────────────────── */
     :root {
-      /* Python.org palette */
-      --py-blue:         #3776ab;
-      --py-blue-dark:    #2b5b84;
-      --py-blue-darker:  #1e415e;
-      --py-navy:         #1e2933;
-      --py-yellow:       #ffd343;
-      --py-yellow-dark:  #e6bc2d;
-      /* Page backgrounds */
-      --bg:              #f9f9f9;
-      --bg-2:            #eeeeee;
+      /* Anthropic / Claude palette */
+      --coral:           #d97757;
+      --coral-dark:      #c4633f;
+      --coral-darker:    #a84e2e;
+      --cream-deep:      #1a1a18;
+      --cream-mid:       #e8e6dc;
+      /* Page backgrounds — warm cream */
+      --bg:              #faf9f4;
+      --bg-2:            #f0ede6;
       --card-bg:         #ffffff;
       --surface:         #ffffff;
-      --surface-2:       #f3f3f3;
-      --surface-solid:   #e8e8e8;
-      /* Borders */
-      --border:          #caccce;
-      --border-strong:   #aaaaaa;
-      /* Text — python.org uses #444 body, #222 headings */
-      --text:            #222222;
-      --text-2:          #333333;
-      --text-3:          #444444;
-      --text-4:          #767676;
+      --surface-2:       #f5f3ed;
+      --surface-solid:   #e8e6dc;
+      /* Borders — warm gray */
+      --border:          rgba(194,192,182,0.55);
+      --border-strong:   rgba(194,192,182,0.85);
+      /* Text — warm near-black */
+      --text:            #141413;
+      --text-2:          #30302e;
+      --text-3:          #4a4a47;
+      --text-4:          #87867f;
       --white:           #ffffff;
-      /* Accent = Python blue */
-      --accent:          #3776ab;
-      --accent-soft:     rgba(55,118,171,0.08);
-      --accent-soft2:    rgba(55,118,171,0.15);
-      /* Shadows */
-      --shadow-sm:       0 1px 4px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.06);
-      --shadow-md:       0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.07);
-      --shadow-lg:       0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07);
-      /* Fonts — python.org uses Source Sans Pro */
-      --font-serif:      'Source Sans 3', Arial, sans-serif;
-      --font-sans:       'Source Sans 3', Arial, sans-serif;
-      --font-mono:       'Fira Code', Consolas, 'Lucida Console', monospace;
+      /* Accent = Claude coral */
+      --accent:          #d97757;
+      --accent-soft:     rgba(217,119,87,0.08);
+      --accent-soft2:    rgba(217,119,87,0.15);
+      /* Shadows — warm tinted */
+      --shadow-sm:       0 1px 4px rgba(20,20,19,0.07), 0 1px 2px rgba(20,20,19,0.04);
+      --shadow-md:       0 4px 16px rgba(20,20,19,0.09), 0 1px 4px rgba(20,20,19,0.05);
+      --shadow-lg:       0 8px 32px rgba(20,20,19,0.11), 0 2px 8px rgba(20,20,19,0.05);
+      /* Fonts — DM Sans (Anthropic's humanist sans-serif) */
+      --font-serif:      'DM Sans', system-ui, sans-serif;
+      --font-sans:       'DM Sans', system-ui, sans-serif;
+      --font-mono:       'DM Mono', 'Fira Code', Consolas, monospace;
       --ease:            cubic-bezier(0.645,0.045,0.355,1);
       --transition:      all 0.2s var(--ease);
       /* Orange reused for chat widget — keep orange vars for it */
-      --orange:          #f97316;
-      --orange-dark:     #ea6a00;
-      --orange-tint:     rgba(249,115,22,0.10);
-      --orange-tint2:    rgba(249,115,22,0.18);
-      /* Chat widget dark header — use python navy */
-      --sidebar-bg:      #1e2933;
-      --sb-border:       rgba(255,255,255,0.10);
+      --orange:          #d97757;
+      --orange-dark:     #c4633f;
+      --orange-tint:     rgba(217,119,87,0.10);
+      --orange-tint2:    rgba(217,119,87,0.18);
+      /* Chat widget dark header — warm charcoal */
+      --sidebar-bg:      #1a1a18;
+      --sb-border:       rgba(255,255,255,0.08);
       --sb-text:         rgba(255,255,255,0.92);
-      --sb-text-2:       rgba(255,255,255,0.58);
-      /* Legacy aliases */
-      --navy:            #1e2933;
-      --light-navy:      #f9f9f9;
+      --sb-text-2:       rgba(255,255,255,0.50);
+      /* Legacy aliases — mapped to new palette */
+      --navy:            #1a1a18;
+      --light-navy:      #faf9f4;
       --lightest-navy:   #ffffff;
-      --teal:            #3776ab;
-      --teal-tint:       rgba(55,118,171,0.08);
-      --teal-tint2:      rgba(55,118,171,0.15);
-      --slate:           #444444;
-      --light-slate:     #333333;
-      --lightest-slate:  #222222;
-      --blue:            #3776ab;
-      --blue-bright:     #3776ab;
-      --blue-deep:       #2b5b84;
-      --blue-tint:       rgba(55,118,171,0.08);
-      --blue-tint2:      rgba(55,118,171,0.15);
+      --teal:            #d97757;
+      --teal-tint:       rgba(217,119,87,0.08);
+      --teal-tint2:      rgba(217,119,87,0.15);
+      --slate:           #4a4a47;
+      --light-slate:     #30302e;
+      --lightest-slate:  #141413;
+      --blue:            #d97757;
+      --blue-bright:     #d97757;
+      --blue-deep:       #c4633f;
+      --blue-tint:       rgba(217,119,87,0.08);
+      --blue-tint2:      rgba(217,119,87,0.15);
+      /* Python.org aliases kept for backward compat */
+      --py-blue:         #d97757;
+      --py-blue-dark:    #c4633f;
+      --py-blue-darker:  #a84e2e;
+      --py-navy:         #1a1a18;
+      --py-yellow:       #d97757;
+      --py-yellow-dark:  #c4633f;
     }
 
     /* ─── Reset ─────────────────────────────────────────────────────── */
@@ -90,8 +96,8 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--py-blue); text-decoration: none; }
-    a:hover { text-decoration: underline; color: var(--py-blue-dark); }
+    a { color: var(--coral); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--coral-dark); }
     img { display: block; max-width: 100%; }
     ul { list-style: none; }
     button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -106,7 +112,7 @@
       min-height: 100vh;
     }
 
-    /* ─── Left Panel — Python.org #1e2933 dark nav ──────────────────── */
+    /* ─── Left Panel — Anthropic / Claude warm cream sidebar ────────── */
     .left-panel {
       width: 300px;
       flex-shrink: 0;
@@ -118,7 +124,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: var(--py-navy);
+      background: #f0ede6;
+      border-right: 1px solid rgba(194,192,182,0.45);
     }
 
     .left-top { flex: 1; }
@@ -130,19 +137,19 @@
       margin-bottom: 36px;
     }
     .social-link {
-      color: rgba(255,255,255,0.55);
+      color: #87867f;
       display: flex;
       align-items: center;
       padding: 7px;
       border-radius: 6px;
       transition: color 0.2s, background 0.2s;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(194,192,182,0.5);
+      background: rgba(255,255,255,0.5);
     }
     .social-link:hover {
-      color: var(--py-yellow);
-      border-color: rgba(255,211,67,0.4);
-      background: rgba(255,211,67,0.10);
+      color: var(--coral);
+      border-color: rgba(217,119,87,0.4);
+      background: rgba(217,119,87,0.07);
       text-decoration: none;
     }
     .social-link svg { width: 15px; height: 15px; }
@@ -150,46 +157,46 @@
     .profile-name {
       font-family: var(--font-sans);
       font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      font-weight: 600;
+      letter-spacing: -0.02em;
       line-height: 1.15;
       margin-bottom: 6px;
-      color: #ffffff;
+      color: #141413;
     }
     .profile-divider {
-      width: 32px;
-      height: 3px;
-      background: var(--py-yellow);
+      width: 28px;
+      height: 2px;
+      background: var(--coral);
       border-radius: 2px;
       margin-bottom: 14px;
     }
     .profile-title {
       font-family: var(--font-sans);
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--py-yellow);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--coral);
       margin-bottom: 14px;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
     }
     .profile-bio {
       font-size: 0.84rem;
       font-weight: 400;
-      color: rgba(255,255,255,0.60);
+      color: #87867f;
       max-width: 240px;
       line-height: 1.7;
       margin-bottom: 40px;
     }
-    .profile-bio a { color: rgba(255,255,255,0.85); text-decoration: underline; }
-    .profile-bio a:hover { color: var(--py-yellow); }
+    .profile-bio a { color: #30302e; text-decoration: underline; }
+    .profile-bio a:hover { color: var(--coral); }
 
-    /* Nav — like python.org sidebar nav */
+    /* Nav — Claude platform sidebar nav */
     .nav-heading {
       font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(135,134,127,0.7);
       margin-bottom: 8px;
       font-family: var(--font-sans);
     }
@@ -198,24 +205,25 @@
       display: flex;
       align-items: center;
       padding: 8px 12px;
-      color: rgba(255,255,255,0.65);
+      color: #4a4a47;
       font-size: 0.83rem;
       font-weight: 400;
       transition: var(--transition);
       width: 100%;
       border-radius: 6px;
-      border-left: 3px solid transparent;
+      border-left: 2px solid transparent;
     }
     .nav-item:hover {
-      color: #ffffff;
-      background: rgba(255,255,255,0.07);
-      border-left-color: rgba(255,255,255,0.25);
+      color: #141413;
+      background: rgba(217,119,87,0.07);
+      border-left-color: rgba(217,119,87,0.35);
       text-decoration: none;
     }
     .nav-item.active {
-      color: #ffffff;
-      background: rgba(255,211,67,0.12);
-      border-left-color: var(--py-yellow);
+      color: #141413;
+      background: rgba(217,119,87,0.10);
+      border-left-color: var(--coral);
+      font-weight: 500;
     }
     .nav-line { display: none; }
 
@@ -224,7 +232,7 @@
       display: flex;
       gap: 8px;
       padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.10);
+      border-top: 1px solid rgba(194,192,182,0.45);
       margin-top: 24px;
     }
 
@@ -233,7 +241,7 @@
       flex: 1;
       padding: 64px 72px 120px 72px;
       min-width: 0;
-      background: var(--surface);
+      background: var(--bg);
     }
 
     /* ─── Section ───────────────────────────────────────────────────── */
@@ -241,20 +249,20 @@
       margin-bottom: 80px;
       scroll-margin-top: 72px;
     }
-    /* Section label — python.org h5 style: uppercase bold, coloured */
+    /* Section label — Anthropic style: warm, minimal, coral accent */
     .section-label {
       display: flex;
       align-items: center;
       gap: 14px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--py-blue);
+      color: var(--coral);
       margin-bottom: 28px;
       font-family: var(--font-sans);
-      border-bottom: 2px solid var(--py-blue);
-      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(217,119,87,0.25);
+      padding-bottom: 10px;
     }
     .section-label::after { display: none; }
 
@@ -267,15 +275,15 @@
       font-weight: 400;
     }
     .about-text p:last-child { margin-bottom: 0; }
-    .about-text a { color: var(--py-blue); }
+    .about-text a { color: var(--coral); }
     .about-text a:hover { text-decoration: underline; }
 
     .skills-label {
       font-size: 0.68rem;
-      font-weight: 700;
+      font-weight: 500;
       letter-spacing: 0.10em;
       text-transform: uppercase;
-      color: var(--py-blue);
+      color: var(--coral);
       margin: 32px 0 12px;
     }
     .pill-row {
@@ -287,22 +295,22 @@
       font-family: var(--font-sans);
       font-size: 0.78rem;
       font-weight: 400;
-      color: var(--py-blue-dark);
-      background: var(--accent-soft);
-      border: 1px solid rgba(55,118,171,0.25);
+      color: var(--coral-dark);
+      background: rgba(217,119,87,0.07);
+      border: 1px solid rgba(217,119,87,0.22);
       padding: 4px 13px;
-      border-radius: 6px;
+      border-radius: 20px;
       transition: background 0.15s, border-color 0.15s;
       white-space: nowrap;
     }
     .pill:hover {
-      background: var(--accent-soft2);
-      border-color: rgba(55,118,171,0.45);
+      background: rgba(217,119,87,0.13);
+      border-color: rgba(217,119,87,0.4);
     }
 
     /* ─── Cards (shared) ────────────────────────────────────────────── */
     .card {
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 20px 22px;
       border: 1px solid var(--border);
       background: var(--card-bg);
@@ -311,7 +319,7 @@
       box-shadow: var(--shadow-sm);
     }
     .card:hover {
-      border-color: var(--py-blue);
+      border-color: rgba(217,119,87,0.45);
       box-shadow: var(--shadow-md);
     }
     .card-arrow {
@@ -319,7 +327,7 @@
       color: var(--text-4);
       flex-shrink: 0;
     }
-    .card:hover .card-arrow { transform: translate(4px,-4px); color: var(--py-blue); }
+    .card:hover .card-arrow { transform: translate(4px,-4px); color: var(--coral); }
 
     /* ─── Certifications ────────────────────────────────────────────── */
     .cert-list { display: flex; flex-direction: column; gap: 8px; }
@@ -335,7 +343,7 @@
       box-shadow: var(--shadow-sm);
     }
     .cert-card:hover {
-      border-color: var(--py-blue);
+      border-color: rgba(217,119,87,0.45);
       box-shadow: var(--shadow-md);
     }
     .cert-icon-wrap {
@@ -345,22 +353,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent-soft);
-      border-radius: 6px;
-      color: var(--py-blue);
-      border: 1px solid rgba(55,118,171,0.20);
+      background: rgba(217,119,87,0.08);
+      border-radius: 8px;
+      color: var(--coral);
+      border: 1px solid rgba(217,119,87,0.18);
       transition: background 0.18s;
     }
-    .cert-card:hover .cert-icon-wrap { background: var(--accent-soft2); }
+    .cert-card:hover .cert-icon-wrap { background: rgba(217,119,87,0.14); }
     .cert-body { flex: 1; min-width: 0; }
     .cert-title {
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-2);
       margin-bottom: 2px;
       transition: color 0.18s;
     }
-    .cert-card:hover .cert-title { color: var(--py-blue); }
+    .cert-card:hover .cert-title { color: var(--coral); }
     .cert-issuer { font-size: 0.78rem; color: var(--text-4); }
 
     /* ─── Projects — Flip Cards ─────────────────────────────────────── */
@@ -413,7 +421,7 @@
       transition: border-color 0.18s, box-shadow 0.18s;
     }
     .flip-wrapper:hover .flip-front {
-      border-color: var(--py-blue);
+      border-color: rgba(217,119,87,0.45);
       box-shadow: var(--shadow-md);
     }
 
@@ -438,9 +446,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--accent-soft);
+      background: rgba(217,119,87,0.07);
     }
-    .thumb-gradient svg { opacity: 0.55; width: 36px; height: 36px; color: var(--py-blue); }
+    .thumb-gradient svg { opacity: 0.55; width: 36px; height: 36px; color: var(--coral); }
 
     .project-content { flex: 1; min-width: 0; }
     .project-meta {
@@ -453,7 +461,7 @@
     .project-year {
       font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: var(--py-blue);
+      color: var(--coral);
     }
     .project-title {
       font-size: 1rem;
@@ -463,7 +471,7 @@
       line-height: 1.3;
       margin-bottom: 8px;
     }
-    .flip-wrapper:hover .project-title { color: var(--py-blue); }
+    .flip-wrapper:hover .project-title { color: var(--coral); }
     .project-desc {
       font-size: 0.85rem;
       color: var(--text-3);
@@ -485,7 +493,7 @@
       align-items: center;
       gap: 10px;
       padding: 8px 14px;
-      background: #f8f9fc;
+      background: #f5f2eb;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
       height: 36px;
@@ -499,7 +507,7 @@
     .dot-green  { background: #28c840; }
     .browser-url {
       flex: 1;
-      background: #eff1f5;
+      background: #ede9e0;
       border-radius: 4px;
       padding: 2px 8px;
       font-family: var(--font-mono);
@@ -572,31 +580,31 @@
       min-width: 180px;
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 3px;
+      border-radius: 6px;
       padding: 9px 14px;
       color: var(--text);
       font-size: 0.875rem;
       font-family: var(--font-sans);
-      font-weight: 300;
+      font-weight: 400;
       outline: none;
       transition: border-color 0.18s;
     }
     .gh-search::placeholder { color: var(--text-4); }
-    .gh-search:focus { border-color: var(--border-strong); }
+    .gh-search:focus { border-color: rgba(217,119,87,0.45); }
     .gh-sort {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 3px;
+      border-radius: 6px;
       padding: 9px 14px;
       color: var(--text);
       font-size: 0.875rem;
       font-family: var(--font-sans);
-      font-weight: 300;
+      font-weight: 400;
       outline: none;
       cursor: pointer;
       transition: border-color 0.18s;
     }
-    .gh-sort:focus { border-color: var(--border-strong); }
+    .gh-sort:focus { border-color: rgba(217,119,87,0.45); }
     .gh-sort option { background: #fff; color: #111; }
 
     .repos-grid { display: flex; flex-direction: column; gap: 8px; }
@@ -609,7 +617,7 @@
       box-shadow: var(--shadow-sm);
     }
     .repo-card:hover {
-      border-color: var(--py-blue);
+      border-color: rgba(217,119,87,0.45);
       box-shadow: var(--shadow-md);
     }
     .repo-top {
@@ -621,14 +629,14 @@
     }
     .repo-name-link {
       font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--py-blue);
+      font-weight: 500;
+      color: var(--coral);
       display: flex;
       align-items: center;
       gap: 6px;
       transition: color 0.2s;
     }
-    .repo-name-link:hover { color: var(--py-blue-dark); text-decoration: underline; }
+    .repo-name-link:hover { color: var(--coral-dark); text-decoration: underline; }
     .repo-name-link:hover .r-arrow { transform: translate(3px,-3px); }
     .r-arrow { font-size: 0.8rem; transition: transform 0.2s var(--ease); display: inline-block; }
     .repo-desc {
@@ -663,16 +671,16 @@
       gap: 4px;
       font-size: 0.7rem;
       font-family: var(--font-sans);
-      font-weight: 600;
-      color: var(--py-blue-dark);
-      background: var(--accent-soft);
-      border: 1px solid rgba(55,118,171,0.25);
+      font-weight: 500;
+      color: var(--coral-dark);
+      background: rgba(217,119,87,0.08);
+      border: 1px solid rgba(217,119,87,0.22);
       padding: 2px 10px;
-      border-radius: 6px;
+      border-radius: 20px;
       transition: background 0.15s, border-color 0.15s;
       cursor: pointer;
     }
-    .live-btn:hover { background: var(--accent-soft2); border-color: var(--py-blue); text-decoration: none; }
+    .live-btn:hover { background: rgba(217,119,87,0.14); border-color: var(--coral); text-decoration: none; }
     .gh-empty {
       text-align: center;
       color: var(--slate);
@@ -688,7 +696,7 @@
 
     /* ─── Skeleton ──────────────────────────────────────────────────── */
     .sk {
-      background: linear-gradient(90deg, #e8eef4 25%, #f0f5f9 50%, #e8eef4 75%);
+      background: linear-gradient(90deg, #eae8e0 25%, #f0ede7 50%, #eae8e0 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
       border-radius: 4px;
@@ -716,10 +724,10 @@
       font-family: var(--font-sans);
       font-weight: 400;
       line-height: 1.7;
-      border-top: 2px solid var(--py-blue);
+      border-top: 1px solid rgba(217,119,87,0.2);
     }
-    .footer a { color: var(--py-blue); transition: color 0.15s; }
-    .footer a:hover { color: var(--py-blue-dark); text-decoration: underline; }
+    .footer a { color: var(--coral); transition: color 0.15s; }
+    .footer a:hover { color: var(--coral-dark); text-decoration: underline; }
 
     /* ─── Fade-in animation ─────────────────────────────────────────── */
     @keyframes fadeUp {
@@ -778,7 +786,7 @@
       margin-bottom: 24px;
     }
     .featured-card:hover {
-      border-color: var(--py-blue);
+      border-color: rgba(217,119,87,0.45);
       box-shadow: var(--shadow-lg);
     }
     .featured-card-top {
@@ -789,37 +797,37 @@
     }
     .featured-icon {
       width: 44px; height: 44px; flex-shrink: 0;
-      background: var(--accent-soft);
-      border: 1px solid rgba(55,118,171,0.20);
-      border-radius: 6px;
+      background: rgba(217,119,87,0.08);
+      border: 1px solid rgba(217,119,87,0.18);
+      border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
     }
-    .featured-icon svg { width: 20px; height: 20px; color: var(--py-blue); }
+    .featured-icon svg { width: 20px; height: 20px; color: var(--coral); }
     .featured-info { flex: 1; min-width: 0; }
     .featured-meta {
       display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
     }
-    .featured-year { font-family: var(--font-mono); font-size: 0.7rem; color: var(--py-blue); }
+    .featured-year { font-family: var(--font-mono); font-size: 0.7rem; color: var(--coral); }
     .featured-badge {
-      font-family: var(--font-sans); font-size: 0.62rem; font-weight: 600;
+      font-family: var(--font-sans); font-size: 0.62rem; font-weight: 500;
       letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--py-blue-dark); background: var(--accent-soft);
-      border: 1px solid rgba(55,118,171,0.22);
-      padding: 2px 8px; border-radius: 6px;
+      color: var(--coral-dark); background: rgba(217,119,87,0.08);
+      border: 1px solid rgba(217,119,87,0.20);
+      padding: 2px 8px; border-radius: 20px;
     }
     .featured-title {
-      font-size: 1.05rem; font-weight: 600;
+      font-size: 1.05rem; font-weight: 500;
       color: var(--text-2); margin-bottom: 8px;
       transition: color 0.18s;
     }
-    .featured-card:hover .featured-title { color: var(--py-blue); }
+    .featured-card:hover .featured-title { color: var(--coral); }
     .featured-desc {
       font-size: 0.875rem; font-weight: 400; color: var(--text-3); line-height: 1.65; margin-bottom: 14px;
     }
 
     /* ─── Stock Widget ───────────────────────────────────────────────── */
     .stock-widget {
-      background: #f3f7fb;
+      background: #f5f2eb;
       border-top: 1px solid var(--border);
       margin-top: 16px;
       padding: 16px 20px;
@@ -830,8 +838,8 @@
       padding-bottom: 10px; border-bottom: 1px solid var(--border);
     }
     .sw-label {
-      font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
-      color: var(--py-blue); letter-spacing: 0.10em; text-transform: uppercase;
+      font-family: var(--font-sans); font-size: 0.65rem; font-weight: 500;
+      color: var(--coral); letter-spacing: 0.10em; text-transform: uppercase;
     }
     .sw-time { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-4); }
     .sw-tickers {
@@ -849,7 +857,7 @@
     .sw-chg { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600; }
     .sw-chg.up { color: #16a34a; }
     .sw-chg.dn { color: #dc2626; }
-    .sw-skeleton { background: #eef1f6; border-radius: 3px; animation: sw-pulse 1.4s ease infinite; }
+    .sw-skeleton { background: #e8e4da; border-radius: 3px; animation: sw-pulse 1.4s ease infinite; }
     @keyframes sw-pulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
     .sw-footer {
       font-size: 0.6rem; color: var(--text-4);
@@ -924,7 +932,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange) 0%, #fbbf24 100%);
+      background: linear-gradient(135deg, #d97757 0%, #e8956e 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -933,7 +941,7 @@
     }
     .vai-header-info { flex: 1; }
     .vai-header-name {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.88rem;
       font-weight: 600;
       color: #fff;
@@ -958,7 +966,7 @@
       flex: 1;
       overflow-y: auto;
       padding: 16px 14px;
-      background: #f8faff;
+      background: #faf9f4;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -979,18 +987,18 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--orange) 0%, #fbbf24 100%);
+      background: linear-gradient(135deg, #d97757 0%, #e8956e 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.7rem;
       flex-shrink: 0;
       color: #fff;
-      font-weight: 700;
+      font-weight: 600;
     }
     .vai-msg.vai-user .vai-msg-avatar {
-      background: #e2e8f0;
-      color: #6b7280;
+      background: #e8e6dc;
+      color: #87867f;
     }
 
     .vai-bubble {
@@ -1003,9 +1011,9 @@
     }
     .vai-msg.vai-agent .vai-bubble {
       background: #ffffff;
-      border: 1px solid #e2e8f0;
+      border: 1px solid rgba(194,192,182,0.5);
       border-bottom-left-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      box-shadow: 0 1px 4px rgba(20,20,19,0.06);
     }
     .vai-msg.vai-user .vai-bubble {
       background: var(--orange);
@@ -1037,7 +1045,7 @@
       flex-wrap: wrap;
       gap: 6px;
       padding: 0 14px 10px;
-      background: #f8faff;
+      background: #faf9f4;
     }
     .vai-chip {
       font-size: 0.72rem;
@@ -1060,23 +1068,23 @@
       align-items: center;
       gap: 8px;
       padding: 10px 12px;
-      background: #fff;
-      border-top: 1px solid #e2e8f0;
+      background: #faf9f4;
+      border-top: 1px solid rgba(194,192,182,0.4);
       flex-shrink: 0;
     }
     #vai-input {
       flex: 1;
-      border: 1px solid #e2e8f0;
+      border: 1px solid rgba(194,192,182,0.55);
       border-radius: 10px;
       padding: 8px 12px;
       font-size: 0.85rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       color: var(--text);
       outline: none;
-      background: #f8faff;
+      background: #ffffff;
       transition: border-color 0.2s;
     }
-    #vai-input:focus { border-color: rgba(249,115,22,0.45); }
+    #vai-input:focus { border-color: rgba(217,119,87,0.45); }
     #vai-input::placeholder { color: #9ca3af; }
     #vai-send {
       width: 36px;
@@ -1149,7 +1157,7 @@
       <p class="profile-title fade-up delay-1">Engineering Leader</p>
       <p class="profile-bio fade-up delay-2">
         Building enterprise software &amp; leading engineering teams at
-        <a href="https://www.salesforce.com" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);text-decoration:underline">Salesforce</a>.
+        <a href="https://www.salesforce.com" target="_blank" rel="noopener" style="color:#30302e;text-decoration:underline">Salesforce</a>.
         Specialising in Revenue · Quote-to-Cash · AI/LLM.
       </p>
 
